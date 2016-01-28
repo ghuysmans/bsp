@@ -1,0 +1,20 @@
+CLASSES=$(patsubst %.java,%.class,$(wildcard core/*.java))
+all: $(CLASSES)
+
+ui: all
+	java -cp . core.TestUI
+compare: all
+	java -cp . core.TestCompare
+
+clean:
+	rm core/*.class tests/*.class
+
+JUNIT=tests/junit-4.11.jar:tests/hamcrest-core-1.3.jar
+TESTSOURCE=$(wildcard tests/*.java)
+TESTCLASSES=$(patsubst %.java,%.class,$(TESTSOURCE))
+TESTS=$(subst /,.,$(patsubst %.java,%,$(TESTSOURCE)))
+test: $(TESTCLASSES)
+	java -cp .:$(JUNIT) org.junit.runner.JUnitCore $(TESTS)
+
+%.class: %.java
+	javac -cp .:$(JUNIT) $<
