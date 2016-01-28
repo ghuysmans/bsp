@@ -1,9 +1,6 @@
-CLASSES=$(patsubst %.java,%.class,$(wildcard core/*.java))
-all: $(CLASSES)
-
-ui: all
+ui: core/TestUI.class
 	java -cp . core.TestUI
-compare: all
+compare: core/TestCompare.class
 	java -cp . core.TestCompare
 
 clean:
