@@ -1,7 +1,7 @@
 ui: core/TestUI.class
 	java -cp . core.TestUI
 compare: core/TestCompare.class
-	java -cp . core.TestCompare
+	java -cp . core.TestCompare ${ARGS}
 
 clean:
 	rm core/*.class tests/*.class
