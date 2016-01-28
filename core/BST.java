@@ -2,10 +2,10 @@ package core;
 import java.util.LinkedList;
 
 public class BST {
-	protected Segment separator;
-	protected BST negative;
-	protected BST positive;
-	protected LinkedList<Segment> items;
+	public Segment separator;
+	public BST negative;
+	public BST positive;
+	public LinkedList<Segment> items;
 
 	public boolean contains(Segment segment) {
 		if (separator == null)
