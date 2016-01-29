@@ -45,6 +45,12 @@ public class Segment {
 		return p+" -- "+q+": "+a+"x + "+b+"y + "+c+" = 0";
 	}
 
+	public boolean equals(Object other) {
+		Segment s;
+		return other instanceof Segment &&
+			(s=(Segment)other).p.equals(p) && s.q.equals(q);
+	}
+
 	public Segment(Point p, Point q) {
 		this.p = p;
 		this.q = q;
