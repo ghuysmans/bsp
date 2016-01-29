@@ -24,6 +24,10 @@ public class BST {
 				else
 					return positive.contains(segment);
 			}
+			else
+				//the segment can't be present as-is
+				return false;
+			/*
 			else {
 				//split (worst case)
 				Point inter = segment.intersection(separator);
@@ -35,6 +39,7 @@ public class BST {
 					return positive.contains(segment.to(inter)) &&
 						negative.contains(segment.from(inter));
 			}
+			*/
 		}
 	}
 
