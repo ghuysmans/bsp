@@ -1,0 +1,125 @@
+\documentclass[12pt,twocolumn]{article}
+\usepackage{fullpage}
+\usepackage[a4paper, margin=1.5cm, bottom=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{fourier} %font
+\usepackage{url} %links
+\usepackage{hyperref} %PDF links
+\usepackage[T1]{fontenc}
+\usepackage{ucs}
+\usepackage[francais]{babel}
+\usepackage[utf8x]{inputenc}
+\newcommand{\es}{\emptyset}
+\newcommand{\inc}{\subseteq}
+\newcommand{\sm}{\setminus}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\newcommand{\esN}{\mathbb{N}}
+\newcommand{\esZ}{\mathbb{Z}}
+\newcommand{\esR}{\mathbb{R}}
+\newcommand\wb[1]{\overline{#1}}
+\newcommand\xor{\oplus}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\reg}{\mathcal{R}}
+\usepackage[french,onelanguage]{algorithm2e}
+
+\title{Projet de Structure de données II - Exercice préliminaire}
+\author{Guillaume \textsc{Huysmans}, Alexis \textsc{Lecocq}}
+\date{31 janvier 2016}
+\hypersetup{pdfauthor={Guillaume Huysmans, Alexis Lecocq},
+	pdftitle={Projet de Structure de données II - Exercice préliminaire}
+	pdfsubject={BST, plan, binary space partition},
+	pdfkeywords={sdd2}}
+\begin{document}
+\maketitle
+
+\section{Rappels théoriques}
+Un arbre BSP (\textit{Binary Space Partition}) permet d'accéder efficacement
+à des objets dans l'espace ou ici, le plan. Son principe est dérivé de celui
+des arbres binaires. Chaque noeud interne représente une région $\reg$
+du plan et est divisé en trois parties selon
+une droite $D\equiv f(P)=aP_x+bP_y+c=0$ :
+\begin{itemize}
+	\item $d^-=\left\{f(P)<0|P\in\reg\right\}$ (sous-arbre gauche)
+	\item une liste chaînée de segments $s \inc D$
+	\item $d^+=\left\{f(P)>0|P\in\reg\right\}$ (sous-arbre droit)
+\end{itemize}
+À une feuille de cet arbre, aucune droite ne sera associée et elle ne
+contiendra qu'une liste chaînée de segments.
+
+\section{Recherche dans une liste simplement chaînée}
+La recherche dans la liste chaînée est implémentée par récursion terminale :
+les deux cas de base sont la liste vide et celle dont le premier élément
+est celui que l'on recherche. Le cas récursif consiste en un simple rappel
+avec la suite de la liste.
+
+\begin{algorithm}
+\caption{in\_ll}
+\SetAlgoLined\DontPrintSemicolon
+\KwData{ll, x}
+\KwResult{x $\in$ ll}
+\uIf{ll = $\es$} {
+	\Return{0}
+}
+\uElseIf{ll.data = x} {
+	\Return{1}
+}
+\Else {
+	\Return{in\_ll(ll.next, x)}
+}
+~
+\end{algorithm}
+
+Complexité (reprise du cours) :
+\begin{itemize}
+	\item Dans le pire des cas : $\bigO(n)$
+	\item En moyenne : $\bigO(n/2)$
+\end{itemize}
+
+\section{Recherche dans un BST}
+La recherche dans un BST est analogue à celle dans un ABR.
+Pour déterminer si un segment $[A,B]$ est totalement dans un demi-plan
+délimité par $f(P)=aP_x+bP_y+c=0$, il suffit que $f(A) \times f(B) \geq 0$.
+La division du segment $[A,B]$ est assez facilement implémentée :
+on calcule son l'intersection $X$ avec le segment qui détermine
+les demi-plans puis on le décompose en deux autres : $[A,X]$ et $[X,B]$.
+
+\begin{algorithm}
+\caption{contains}
+\SetAlgoLined\DontPrintSemicolon
+\KwData{bst, segment}
+\KwResult{segment $\in$ bst}
+\uIf{bst est une feuille} {
+	\Return{in\_ll(segment, bst.list)}
+}
+\uElseIf{segment $\inc d^-$} {
+	\Return{contains($bst^-$, segment)}
+}
+\uElseIf{segment $\inc d^+$} {
+	\Return{contains($bst^+$, segment)}
+}
+\Else {
+	$segment^-$ = $segment \cap d^-$ \;
+	$segment^+$ = $segment \cap d^+$ \;
+	\Return{contains($bst^-$, $segment^-$) $\land$
+		contains($bst^+$, $segment^+$)}
+}
+~
+\end{algorithm}
+
+Il est prouvé dans l'ouvrage de référence (p. 258) que
+le nombre de fragments obtenus après construction d'un BSP
+est en $\bigO(n+2n\ln n)=\bigO(n\ln n)$.
+
+Par noeud interne, en ignorant les appels récursifs,
+on effectue un travail en $\bigO(1)$ :
+il n'y a que des tests et calculs simples.
+Par feuille, au pire, une recherche en $\bigO(n\ln n)$ est effectuée.
+
+Dans le cas d'une autopartition, il y aura au pire $n$ noeuds internes.
+
+Si une seule feuille est traitée, on obtient
+$1 \times \bigO(n\ln n) + n \times \bigO(1) = \bigO(n\ln n)$.
+
+\end{document}
