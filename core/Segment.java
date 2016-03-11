@@ -51,11 +51,26 @@ public class Segment {
 			(s=(Segment)other).p.equals(p) && s.q.equals(q);
 	}
 
+	/**
+	 * Constructs a Segment ensuring that Segment(p,q)==Segment(q,p).
+	 */
 	public Segment(Point p, Point q) {
 		this.p = p;
 		this.q = q;
-		a = p.y - q.y;
-		b = q.x - p.x;
-		c = -b*p.y - a*p.x;
+		if (p.y < q.y) {
+			a = p.y - q.y;
+			b = q.x - p.x;
+			c = -b*p.y - a*p.x;
+		}
+		else {
+			/*
+			 The same as above, p and q were just swapped. Duplication
+			 was necessary since we can't use a constructor in an if
+			 block (it must appear first in the constructor).
+			 */
+			a = q.y - p.y;
+			b = p.x - q.x;
+			c = -b*q.y - a*q.x;
+		}
 	}
 }
