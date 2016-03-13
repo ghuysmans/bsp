@@ -1,0 +1,3 @@
+we must be angle/2 away from the direction vector
+then we just use the distance from the upper vector
+otherwise we could be on either side of it
