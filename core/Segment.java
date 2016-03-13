@@ -76,4 +76,11 @@ public class Segment {
 			c = -b*q.y - a*q.x;
 		}
 	}
+
+	public static Segment load(String s) throws FormatException {
+		String[] data = s.split(" ");
+		Point p=new Point(Scene.getFloat(data[0]), Scene.getFloat(data[1]));
+		Point q=new Point(Scene.getFloat(data[2]), Scene.getFloat(data[3]));
+		return new Segment(p, q, Scene.getColor(data[4]));
+	}
 }
