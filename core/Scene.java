@@ -49,7 +49,7 @@ public class Scene {
 		//header
 		String[] info = r.readLine().split(" ");
 		if (info.length!=4 || !info[0].equals(">"))
-			throw new FormatException("Invalid header: expected >");
+			throw new FormatException("Invalid header: expected > and 3 values");
 		maxX = getInt(info[1]);
 		maxY = getInt(info[2]);
 		int max = Integer.parseInt(info[3]);
