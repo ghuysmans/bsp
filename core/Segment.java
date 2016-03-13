@@ -1,4 +1,5 @@
 package core;
+import java.awt.Color;
 
 public class Segment {
 	/**
@@ -10,6 +11,8 @@ public class Segment {
 	 * Both ends.
 	 */
 	public final Point p, q;
+
+	public final Color color;
 
 	/**
 	 * Get the position of p relative to this segment.
@@ -23,14 +26,7 @@ public class Segment {
 	 * Create a segment with a new origin.
 	 */
 	public Segment from(Point p) {
-		return new Segment(p, q);
-	}
-
-	/**
-	 * Create a segment with a new destination.
-	 */
-	public Segment to(Point q) {
-		return new Segment(p, q);
+		return new Segment(p, q, color);
 	}
 
 	/**
@@ -60,9 +56,10 @@ public class Segment {
 	/**
 	 * Constructs a Segment ensuring that Segment(p,q)==Segment(q,p).
 	 */
-	public Segment(Point p, Point q) {
+	public Segment(Point p, Point q, Color color) {
 		this.p = p;
 		this.q = q;
+		this.color = color;
 		if (p.y < q.y) {
 			a = p.y - q.y;
 			b = q.x - p.x;
