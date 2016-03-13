@@ -27,19 +27,21 @@ public class Scene {
 	}
 
 	protected static float getFloat(String s) throws FormatException {
-		Float f = Float.parseFloat(s);
-		if (f == null)
+		try {
+			return Float.parseFloat(s);
+		}
+		catch (Exception e) {
 			throw new FormatException("Expected a float, got: "+s);
-		else
-			return f;
+		}
 	}
 
 	protected static int getInt(String s) throws FormatException {
-		Integer i = Integer.parseInt(s);
-		if (i == null)
+		try {
+			return Integer.parseInt(s);
+		}
+		catch (Exception e) {
 			throw new FormatException("Expected an int, got: "+s);
-		else
-			return i;
+		}
 	}
 
 	public Scene(String fn) throws IOException, FormatException {
