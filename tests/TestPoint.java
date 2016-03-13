@@ -33,8 +33,19 @@ public class TestPoint {
 		Point b = ap.rotate(o, (float)Math.toRadians(60));
 		Point bp = b.rotate(ap, (float)Math.toRadians(60));
 		assertTrue(a.rotate(o, (float)Math.toRadians(-45)).equals(ap));
-		System.out.println(bp);
-		System.out.println(o);
 		assertTrue(bp.equals(o));
+	}
+
+	@Test
+	public void project() {
+		Point v = new Point(4.94F, 1.06F);
+		Point pov = new Point(1.52F, 3.08F);
+		float fov = (float)Math.toRadians(30);
+		Point p = new Point(4.7F, 1.37F);
+		assertEquals(Float.POSITIVE_INFINITY, p.project(v, pov, fov), 1);
+		Point q = new Point(5.34F, 9.95F);
+		assertEquals(Float.NEGATIVE_INFINITY, q.project(v, pov, fov), 1);
+		Point r = new Point(5.74F, 3.99F);
+		assertEquals(0.5, r.project(v, pov, fov), 0.1);
 	}
 }
