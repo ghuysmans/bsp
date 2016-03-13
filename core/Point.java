@@ -10,7 +10,7 @@ public class Point {
 		return "("+Float.toString(x)+", "+Float.toString(y)+")";
 	}
 
-	public boolean close(float a, float b) {
+	public static boolean close(float a, float b) {
 		return Math.abs(a-b)<EPSILON;
 	}
 
