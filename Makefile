@@ -2,7 +2,7 @@ CLASSES=$(patsubst %.java,%.class,$(wildcard core/*.java))
 all: $(CLASSES)
 
 ui: all
-	java -cp . core.TestUI
+	java -cp . core.TestUI ${ARGS}
 compare: core/TestCompare.class
 	java -cp . core.TestCompare ${ARGS}
 
