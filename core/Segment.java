@@ -38,7 +38,13 @@ public class Segment {
 	 * @return null if there isn't any.
 	 */
 	public Point intersection(Segment s) {
-		return null; //FIXME
+		float d1 = b*s.a - a*s.b;
+		if (Point.close(d1, 0) || Point.close(s.a, 0))
+			return null;
+		else {
+			float y = (-c*s.a+a*s.c)/d1;
+			return new Point((-s.c-s.b*y)/s.a, y);
+		}
 	}
 
 	public String toString() {

@@ -35,4 +35,20 @@ public class TestSegment {
 		assertEquals("p+", -6, s.position(new Point(2,0)), Point.EPSILON);
 		assertEquals("p-", 6, s.position(new Point(0,0)), Point.EPSILON);
 	}
+
+	@Test
+	public void noInter() {
+		Segment s = new Segment(new Point(0, 0), new Point(1, 1));
+		assertNull(s.intersection(s));
+		Segment s2 = new Segment(new Point(3, 3), new Point(2, 2));
+		assertNull(s.intersection(s2));
+	}
+
+	@Test
+	public void inter() {
+		Point d = new Point(2, 2);
+		Segment s = new Segment(new Point(0, 0), new Point(1, 1));
+		Segment s2 = new Segment(new Point(0, 1), d);
+		assertEquals(d, s.intersection(s2));
+	}
 }
