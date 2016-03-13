@@ -2,6 +2,7 @@ package core;
 
 public class Point {
 	public static final float EPSILON = 0.00001F;
+	public static final Point ORIGIN = new Point(0, 0);
 
 	public final float x;
 	public final float y;
@@ -25,6 +26,10 @@ public class Point {
 		return (float)Math.sqrt((dx*dx+dy*dy));
 	}
 
+	public float norm() {
+		return distance(ORIGIN);
+	}
+
 	public Point rotate(Point around, float by) {
 		//let's rotate the point in a translated coordinate system
 		float rx=x-around.x, ry=y-around.y;
@@ -32,6 +37,45 @@ public class Point {
 		float y = (float)(rx*Math.sin(by) + ry*Math.cos(by));
 		//... then undo the previous translation
 		return new Point(x+around.x, y+around.y);
+	}
+
+	/**
+	 * @return vector from p to this
+	 */
+	public Point from(Point p) {
+		return new Point(x-p.x, y-p.y);
+	}
+
+	public float dot(Point vector) {
+		return x*vector.x + y*vector.y;
+	}
+
+	/**
+	 * @return angle in radians between u and v
+	 */
+	public float angle(Point vector) {
+		return (float)Math.acos(dot(vector) / norm() / vector.norm());
+	}
+
+	/**
+	 * Projects p on a unit segment.
+	 * @param v direction vector
+	 * @param pov point of view
+	 * @param fov field of view (strictly positive, in radians)
+	 * @param p target point
+	 * @return position on a [0,1] segment or +-NaN when unseen
+	 */
+	public float project(Point v, Point pov, float fov, Point p) {
+		Point a = new Point(pov.x+v.x, pov.y+v.y);
+		Point u = a.rotate(pov, fov/2).from(pov); //upper vector
+		Point d = p.from(pov); //distance vector
+		float tu=d.angle(u), tv=d.angle(v);
+		if (tv <= fov/2)
+			return tu/fov;
+		else if (close(tv-tu, fov/2))
+			return -Float.NaN;
+		else
+			return Float.NaN;
 	}
 
 	public Point(float x, float y) {
