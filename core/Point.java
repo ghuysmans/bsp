@@ -62,20 +62,19 @@ public class Point {
 	 * @param v direction vector
 	 * @param pov point of view
 	 * @param fov field of view (strictly positive, in radians)
-	 * @param p target point
-	 * @return position on a [0,1] segment or +-NaN when unseen
+	 * @return position on a [0,1] segment or infty when too far on the L/R.
 	 */
-	public float project(Point v, Point pov, float fov, Point p) {
+	public float project(Point v, Point pov, float fov) {
 		Point a = new Point(pov.x+v.x, pov.y+v.y);
 		Point u = a.rotate(pov, fov/2).from(pov); //upper vector
-		Point d = p.from(pov); //distance vector
+		Point d = from(pov); //distance vector
 		float tu=d.angle(u), tv=d.angle(v);
 		if (tv <= fov/2)
 			return tu/fov;
 		else if (close(tv-tu, fov/2))
-			return -Float.NaN;
+			return Float.NEGATIVE_INFINITY;
 		else
-			return Float.NaN;
+			return Float.POSITIVE_INFINITY;
 	}
 
 	public Point(float x, float y) {
