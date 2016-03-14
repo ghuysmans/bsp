@@ -1,0 +1,65 @@
+<project name="BSP">
+	<property name="src.dir" value="." />
+	<property name="build.dir" value="build" />
+	<property name="doc.dir" value="doc/java" />
+	<property name="reports.dir" value="reports" />
+	<property name="reports.html" value="reports/html" />
+	<property name="junit.cp" value="tests/junit-4.11.jar; tests/hamcrest-core-1.3.jar" />
+	<property name="test.src" value="tests/*Test.java" />
+	<property name="test.bin" value="tests/*Test.class" />
+	<property name="root-pkg" value="core" />
+	<property name="main-class" value="${root-pkg}.TestUI" />
+	<property name="jar.dir" value="." />
+	<property name="jar.name" value="${jar.dir}/bsp.jar" />
+	
+	<target name="build">
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="${src.dir}" includeantruntime="false" classpath="${junit.cp}" destdir="${build.dir}" encoding="UTF-8" />
+	</target>
+	<target name="test" depends="build">
+		<mkdir dir="${reports.dir}" />
+		<junit printsummary="yes" showoutput="yes">
+			<classpath>
+				<pathelement path="${junit.cp}" />
+				<pathelement path="${build.dir}" />
+			</classpath>
+			<formatter type="xml" />
+			<batchtest todir="${reports.dir}">
+				<fileset dir="${src.dir}" includes="${test.src}" />
+			</batchtest>
+		</junit>
+		<junitreport todir="${reports.dir}">
+			<fileset dir="${reports.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${reports.html}" />
+		</junitreport>
+	</target>
+	<target name="jar" depends="build">
+		<jar destfile="${jar.name}">
+			<fileset dir="${build.dir}" />
+			<manifest>
+				<attribute name="main-class" value="${main-class}"/>
+			</manifest>
+		</jar>
+	</target>
+	<target name="run" depends="build">
+		<java classpath="${build.dir}:." classname="${main-class}" fork="true" />
+	</target>
+	<target name="run-debug" depends="build">
+		<java classpath="${build.dir}:." classname="${main-class}" fork="true">
+			<arg line="tests/straight.txt" />
+		</java>
+	</target>
+	<target name="run-jar" depends="jar">
+		<java classpath="${jar.name}" classname="${main-class}" fork="true" />
+	</target>
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${doc.dir}" />
+		<delete dir="${reports.dir}" />
+	</target>
+	<target name="javadoc">
+		<javadoc access="public" classpath="${junit.cp}" destdir="${doc.dir}" nodeprecated="true" nodeprecatedlist="true" noindex="false" nonavbar="false" notree="false" packagenames="${root-pkg}.*" source="1.6" sourcepath="${src.dir}" splitindex="true" use="true" version="false"/>
+	</target>
+</project>

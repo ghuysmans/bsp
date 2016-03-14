@@ -1,3 +1,5 @@
 *.swp
-*.class
+build
 scenes
+doc/java
+reports
