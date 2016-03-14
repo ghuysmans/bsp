@@ -1,4 +1,5 @@
 package core;
+import java.awt.Color;
 
 class TestCompare {
 	public static void main(String[] args) {
@@ -11,7 +12,7 @@ class TestCompare {
 			d = Float.parseFloat(args[3]);
 			e = Float.parseFloat(args[4]);
 			f = Float.parseFloat(args[5]);
-			s = new Segment(new Point(a,b), new Point(c,d));
+			s = new Segment(new Point(a,b), new Point(c,d), Color.BLACK);
 			System.out.println(s);
 			System.out.println(s.position(new Point(e,f)));
 		}
