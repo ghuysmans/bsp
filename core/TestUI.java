@@ -20,7 +20,6 @@ class TestUI extends JFrame implements ActionListener {
 	public void loadScene(String filename) {
 		try {
 			scene = new Scene(filename);
-			setContentPane(panel = new UiOverview(this));
 			revalidate();
 			repaint();
 		}
@@ -56,6 +55,7 @@ class TestUI extends JFrame implements ActionListener {
 		setSize(500, 300);
 		setVisible(true);
 		initMenus();
+		setContentPane(panel = new UiOverview(this));
 		if (initialScene != null)
 			loadScene(initialScene);
 	}
