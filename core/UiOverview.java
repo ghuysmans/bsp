@@ -8,13 +8,22 @@ import javax.swing.JPanel;
 class UiOverview extends JPanel implements MouseListener {
 	protected TestUI ui;
 	float zoom = 40;
-	Point dir;
+	Point dir; //vector
 	Point pov;
 	Point prev;
 	float angle = (float)Math.toRadians(60);
 
-	//TODO drawSegment, drawPoint... abstractions
+	/**
+	 * Draw a point.
+	 */
+	protected void draw(Graphics g, Point p) {
+		int x=(int)(zoom*p.x), y=(int)(zoom*p.y);
+		g.fillOval(x-5, y-5, 10, 10);
+	}
 
+	/**
+	 * Draw a segment.
+	 */
 	protected void draw(Graphics g, Segment s) {
 		int x1=(int)(zoom*s.p.x), y1=(int)(zoom*s.p.y);
 		int x2=(int)(zoom*s.q.x), y2=(int)(zoom*s.q.y);
@@ -22,17 +31,36 @@ class UiOverview extends JPanel implements MouseListener {
 		g.drawLine(x1, y1, x2, y2);
 	}
 
+	/**
+	 * Draw an ugly camera.
+	 */
 	protected void drawCamera(Graphics g) {
 		Point p = new Point(pov.x+dir.x, pov.y+dir.y);
-		g.setColor(Color.GRAY.brighter());
-		g.drawLine((int)pov.x, (int)pov.y, (int)p.x, (int)p.y);
+		draw(g, new Segment(pov, p, Color.GRAY.brighter()));
 		Point p1 = p.rotate(pov, angle/2);
 		Point p2 = p.rotate(pov, -angle/2);
-		g.setColor(Color.RED);
-		g.drawLine((int)pov.x, (int)pov.y, (int)p1.x, (int)p1.y);
-		g.drawLine((int)pov.x, (int)pov.y, (int)p2.x, (int)p2.y);
+		draw(g, new Segment(pov, p1, Color.RED));
+		draw(g, new Segment(pov, p2, Color.RED));
 		g.setColor(Color.GRAY.brighter());
-		g.fillOval((int)pov.x-5, (int)pov.y-5, 10, 10);
+		draw(g, pov);
+	}
+
+	/**
+	 * Draw segment projections.
+	 */
+	protected void drawProjections(Graphics g) {
+		float y = 1;
+		for (Segment s: ui.scene.segments) {
+			float pa = s.p.project(dir, pov, angle);
+			float pb = s.q.project(dir, pov, angle);
+			if (Math.abs(pa)==Float.POSITIVE_INFINITY &&
+					Math.abs(pb)==Float.POSITIVE_INFINITY)
+				continue; //not seen
+			Point p = new Point(8 + Point.to01(pa), y);
+			Point q = new Point(8 + Point.to01(pb), y);
+			draw(g, new Segment(p, q, s.color));
+			y += 0.5;
+		}
 	}
 
 	@Override
@@ -47,8 +75,10 @@ class UiOverview extends JPanel implements MouseListener {
 		else {
 			for (Segment s: ui.scene.segments)
 				draw(g, s);
-			if (dir != null)
+			if (dir != null) {
 				drawCamera(g);
+				drawProjections(g);
+			}
 		}
 	}
 
@@ -75,8 +105,10 @@ class UiOverview extends JPanel implements MouseListener {
 			}
 		}
 		else { //let's not rely too much on a third button...
-			if (prev == null)
+			if (prev == null) {
 				prev = new Point((float)p.getX()/zoom,(float)p.getY()/zoom);
+				System.out.println(prev);
+			}
 			else {
 				Point p2 = new Point((float)p.getX()/zoom,(float)p.getY()/zoom);
 				ui.scene.segments.add(new Segment(prev,p2,Color.RED));
