@@ -66,9 +66,9 @@ class UiOverview extends JPanel implements MouseListener {
 				dir = null;
 			}
 			else {
-				float x = (float)(p.getX()-pov.x);
-				float y = (float)(p.getY()-pov.y);
-				dir = new Point(x/zoom, y/zoom);
+				float x = (float)(p.getX()/zoom-pov.x);
+				float y = (float)(p.getY()/zoom-pov.y);
+				dir = new Point(x, y);
 				//we've just moved the camera
 				revalidate();
 				repaint();
