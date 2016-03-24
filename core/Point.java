@@ -15,12 +15,22 @@ public class Point {
 		return Math.abs(a-b)<EPSILON;
 	}
 
+	/**
+	 * Restrict x to the [0,1] interval.
+	 */
+	public static float to01(float x) {
+		return Math.min(1, Math.max(0, x));
+	}
+
 	public boolean equals(Object other) {
 		Point p;
 		return other instanceof Point &&
 			close((p=(Point)other).x, x) && close(p.y, y);
 	}
 
+	/**
+	 * @return Euclidean distance to the given point
+	 */
 	public float distance(Point to) {
 		float dx=to.x-x, dy=to.y-y;
 		return (float)Math.sqrt((dx*dx+dy*dy));
