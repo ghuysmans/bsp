@@ -11,14 +11,15 @@ class UiOverview extends JPanel implements MouseListener {
 	Point dir; //vector
 	Point pov;
 	Point prev;
+	Point ofs = new Point(0, 0);
 	float angle = (float)Math.toRadians(60);
 
 	/**
 	 * Convert scene to screen coordinates
 	 */
 	protected java.awt.Point convert(Point p) {
-		int x = (int)(zoom*x);
-		int y = (int)(zoom*y);
+		int x = (int)(zoom*(p.x-ofs.x));
+		int y = (int)(zoom*(p.y-ofs.y));
 		return new java.awt.Point(x, y);
 	}
 
@@ -26,8 +27,8 @@ class UiOverview extends JPanel implements MouseListener {
 	 * Convert screen to scene coordinates
 	 */
 	protected Point convert(java.awt.Point p) {
-		float x = (float)p.x/zoom;
-		float y = (float)p.y/zoom;
+		float x = (float)p.x/zoom + ofs.x;
+		float y = (float)p.y/zoom + ofs.y;
 		return new Point(x, y);
 	}
 
