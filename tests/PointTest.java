@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
-public class TestPoint {
+public class PointTest {
 	@Test
 	public void distance() {
 		Point p = new Point(3, 14);

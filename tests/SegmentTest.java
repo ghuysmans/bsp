@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
-public class TestSegment {
+public class SegmentTest {
 	private final static Color C = Color.BLACK;
 
 	@Test
