@@ -53,6 +53,7 @@ class TestUI extends JFrame implements ActionListener {
 		setTitle("BSP Viewer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 500);
+		setLocationByPlatform(true);
 		setVisible(true);
 		initMenus();
 		setContentPane(panel = new UiOverview(this));

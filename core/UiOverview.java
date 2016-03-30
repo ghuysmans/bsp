@@ -107,6 +107,7 @@ class UiOverview extends JPanel implements MouseListener {
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				f.setSize(200, 140);
 				f.setContentPane(c);
+				f.setLocationByPlatform(true);
 				f.setVisible(true);
 			}
 		}
