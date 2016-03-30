@@ -42,9 +42,9 @@ public class PointTest {
 		Point pov = new Point(1.52F, 3.08F);
 		float fov = (float)Math.toRadians(60);
 		Point p = new Point(4.7F, 1.37F);
-		assertEquals(Float.POSITIVE_INFINITY, p.project(v, pov, fov), 1);
+		assertEquals(Float.NEGATIVE_INFINITY, p.project(v, pov, fov), 1);
 		Point q = new Point(5.34F, 9.95F);
-		assertEquals(Float.NEGATIVE_INFINITY, q.project(v, pov, fov), 1);
+		assertEquals(Float.POSITIVE_INFINITY, q.project(v, pov, fov), 1);
 		Point r = new Point(5.74F, 3.99F);
 		assertEquals(0.5, r.project(v, pov, fov), 0.1);
 	}
@@ -55,12 +55,12 @@ public class PointTest {
 		Point pov = new Point(1.52F, 3.08F);
 		float fov = (float)Math.toRadians(60);
 		Point p = new Point(4.7F, 1.37F);
-		assertEquals(Float.NEGATIVE_INFINITY, p.project(v, pov, fov), 1);
+		assertEquals(Float.POSITIVE_INFINITY, p.project(v, pov, fov), 1);
 		Point q = new Point(1.46F, .26F);
-		assertEquals(.25, q.project(v, pov, fov), 0.1);
+		assertEquals(.75, q.project(v, pov, fov), 0.1);
 		Point r = new Point(-.07F, .57F);
-		assertEquals(.75, r.project(v, pov, fov), 0.1);
+		assertEquals(.25, r.project(v, pov, fov), 0.1);
 		Point s = new Point(-.61F, 1.63F);
-		assertEquals(Float.POSITIVE_INFINITY, s.project(v, pov, fov), 1);
+		assertEquals(Float.NEGATIVE_INFINITY, s.project(v, pov, fov), 1);
 	}
 }
