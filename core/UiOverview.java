@@ -76,9 +76,15 @@ class UiOverview extends JPanel implements MouseListener {
 				continue; //not seen
 			Point p = new Point(8 + Point.to01(pa), y);
 			Point q = new Point(8 + Point.to01(pb), y);
+			//horizontal
 			draw(g, new Segment(p, q, s.color));
+			//vertical
+			draw(g, new Segment(new Point(p.x,1), new Point(p.x,5), Color.GRAY));
 			y += 0.5;
 		}
+		//borders
+		draw(g, new Segment(new Point(8, 1), new Point(8, 5), Color.BLACK));
+		draw(g, new Segment(new Point(9, 1), new Point(9, 5), Color.BLACK));
 	}
 
 	@Override
