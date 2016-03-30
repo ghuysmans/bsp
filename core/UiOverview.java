@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.JPanel;
+import javax.swing.JFrame;
 
 class UiOverview extends JPanel implements MouseListener {
 	protected TestUI ui;
@@ -64,30 +65,6 @@ class UiOverview extends JPanel implements MouseListener {
 		draw(g, pov);
 	}
 
-	/**
-	 * Draw segment projections.
-	 */
-	protected void drawProjections(Graphics g) {
-		float y = 1;
-		for (Segment s: ui.scene.segments) {
-			float pa = s.p.project(dir, pov, angle);
-			float pb = s.q.project(dir, pov, angle);
-			if (Math.abs(pa)==Float.POSITIVE_INFINITY &&
-					Math.abs(pb)==Float.POSITIVE_INFINITY)
-				continue; //not seen
-			Point p = new Point(8 + Point.to01(pa), y);
-			Point q = new Point(8 + Point.to01(pb), y);
-			//horizontal
-			draw(g, new Segment(p, q, s.color));
-			//vertical
-			draw(g, new Segment(new Point(p.x,1), new Point(p.x,5), Color.GRAY));
-			y += 0.5;
-		}
-		//borders
-		draw(g, new Segment(new Point(8, 1), new Point(8, 5), Color.BLACK));
-		draw(g, new Segment(new Point(9, 1), new Point(9, 5), Color.BLACK));
-	}
-
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.setColor(Color.WHITE);
@@ -100,10 +77,8 @@ class UiOverview extends JPanel implements MouseListener {
 		else {
 			for (Segment s: ui.scene.segments)
 				draw(g, s);
-			if (dir != null) {
+			if (dir != null)
 				drawCamera(g);
-				drawProjections(g);
-			}
 		}
 	}
 
@@ -122,9 +97,17 @@ class UiOverview extends JPanel implements MouseListener {
 			}
 			else {
 				dir = new Point(p.x-pov.x, p.y-pov.y);
-				//we've just moved the camera
+				//we've just moved the camera: display it
 				revalidate();
 				repaint();
+				//paint what we can see
+				JPanel c = new UiCanvas(this, new Noobie(ui.scene.segments), true);
+				JFrame f = new JFrame();
+				f.setTitle("BSP Viewer");
+				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				f.setSize(200, 140);
+				f.setContentPane(c);
+				f.setVisible(true);
 			}
 		}
 		else { //let's not rely too much on a third button...
