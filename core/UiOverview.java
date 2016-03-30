@@ -14,21 +14,39 @@ class UiOverview extends JPanel implements MouseListener {
 	float angle = (float)Math.toRadians(60);
 
 	/**
+	 * Convert scene to screen coordinates
+	 */
+	protected java.awt.Point convert(Point p) {
+		int x = (int)(zoom*x);
+		int y = (int)(zoom*y);
+		return new java.awt.Point(x, y);
+	}
+
+	/**
+	 * Convert screen to scene coordinates
+	 */
+	protected Point convert(java.awt.Point p) {
+		float x = (float)p.x/zoom;
+		float y = (float)p.y/zoom;
+		return new Point(x, y);
+	}
+
+	/**
 	 * Draw a point.
 	 */
 	protected void draw(Graphics g, Point p) {
-		int x=(int)(zoom*p.x), y=(int)(zoom*p.y);
-		g.fillOval(x-5, y-5, 10, 10);
+		java.awt.Point s = convert(p);
+		g.fillOval(s.x-5, s.y-5, 10, 10);
 	}
 
 	/**
 	 * Draw a segment.
 	 */
 	protected void draw(Graphics g, Segment s) {
-		int x1=(int)(zoom*s.p.x), y1=(int)(zoom*s.p.y);
-		int x2=(int)(zoom*s.q.x), y2=(int)(zoom*s.q.y);
+		java.awt.Point p = convert(s.p);
+		java.awt.Point q = convert(s.q);
 		g.setColor(s.color);
-		g.drawLine(x1, y1, x2, y2);
+		g.drawLine(p.x, p.y, q.x, q.y);
 	}
 
 	/**
@@ -89,29 +107,24 @@ class UiOverview extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		java.awt.Point p = e.getPoint();
+		Point p = convert(e.getPoint());
 		if (e.getButton() == 1) {
 			if (pov==null || dir!=null) {
-				pov = new Point((float)p.getX()/zoom,(float)p.getY()/zoom);
+				pov = p;
 				dir = null;
 			}
 			else {
-				float x = (float)(p.getX()/zoom-pov.x);
-				float y = (float)(p.getY()/zoom-pov.y);
-				dir = new Point(x, y);
+				dir = new Point(p.x-pov.x, p.y-pov.y);
 				//we've just moved the camera
 				revalidate();
 				repaint();
 			}
 		}
 		else { //let's not rely too much on a third button...
-			if (prev == null) {
-				prev = new Point((float)p.getX()/zoom,(float)p.getY()/zoom);
-				System.out.println(prev);
-			}
+			if (prev == null)
+				prev = p;
 			else {
-				Point p2 = new Point((float)p.getX()/zoom,(float)p.getY()/zoom);
-				ui.scene.segments.add(new Segment(prev,p2,Color.RED));
+				ui.scene.segments.add(new Segment(prev, p, Color.RED));
 				revalidate();
 				repaint();
 				prev = null;
