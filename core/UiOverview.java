@@ -103,7 +103,7 @@ class UiOverview extends JPanel implements MouseListener {
 				//paint what we can see
 				JPanel c = new UiCanvas(this, new Noobie(ui.scene.segments), true);
 				JFrame f = new JFrame();
-				f.setTitle("BSP Viewer");
+				f.setTitle("Painter's View");
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				f.setSize(200, 140);
 				f.setContentPane(c);
