@@ -52,7 +52,7 @@ class TestUI extends JFrame implements ActionListener {
 	public TestUI(String initialScene) {
 		setTitle("BSP Viewer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500, 300);
+		setSize(600, 500);
 		setVisible(true);
 		initMenus();
 		setContentPane(panel = new UiOverview(this));
