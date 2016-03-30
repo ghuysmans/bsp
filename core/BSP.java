@@ -1,10 +1,10 @@
 package core;
 import java.util.LinkedList;
 
-public class BST {
+public class BSP {
 	public Segment separator;
-	public BST negative;
-	public BST positive;
+	public BSP negative;
+	public BSP positive;
 	public LinkedList<Segment> items;
 
 	public boolean contains(Segment segment) {
@@ -48,7 +48,7 @@ public class BST {
 			sb.append('\t');
 	}
 
-	protected void append(StringBuilder sb, BST bst, int indent) {
+	protected void append(StringBuilder sb, BSP bst, int indent) {
 		if (bst == null) {
 			indent(sb, indent);
 			sb.append("null\n");
@@ -80,7 +80,7 @@ public class BST {
 	/**
 	 * Internal node constructor
 	 */
-	public BST(Segment separator) {
+	public BSP(Segment separator) {
 		this.separator = separator;
 		items = new LinkedList<Segment>();
 	}
@@ -88,7 +88,7 @@ public class BST {
 	/**
 	 * Leaf constructor
 	 */
-	public BST() {
+	public BSP() {
 		items = new LinkedList<Segment>();
 	}
 }
