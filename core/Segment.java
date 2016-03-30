@@ -23,6 +23,13 @@ public class Segment {
 	}
 
 	/**
+	 * Create a segment with a new destination.
+	 */
+	public Segment to(Point q) {
+		return new Segment(p, q, color);
+	}
+
+	/**
 	 * Create a segment with a new origin.
 	 */
 	public Segment from(Point p) {

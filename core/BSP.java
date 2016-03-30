@@ -7,6 +7,9 @@ public class BSP {
 	public BSP positive;
 	public LinkedList<Segment> items;
 
+	/**
+	 * @note useful for testing construction algorithms!
+	 */
 	public boolean contains(Segment segment) {
 		if (separator == null)
 			//leaf
@@ -24,10 +27,6 @@ public class BSP {
 				else
 					return positive.contains(segment);
 			}
-			else
-				//the segment can't be present as-is
-				return false;
-			/*
 			else {
 				//split (worst case)
 				Point inter = segment.intersection(separator);
@@ -39,7 +38,6 @@ public class BSP {
 					return positive.contains(segment.to(inter)) &&
 						negative.contains(segment.from(inter));
 			}
-			*/
 		}
 	}
 
