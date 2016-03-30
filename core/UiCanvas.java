@@ -19,8 +19,7 @@ class UiCanvas extends JPanel implements PainterCallback {
 		float pa = s.p.project(overview.dir, overview.pov, overview.angle);
 		float pb = s.q.project(overview.dir, overview.pov, overview.angle);
 		int x1, x2;
-		if (Math.abs(pa)==Float.POSITIVE_INFINITY &&
-				Math.abs(pb)==Float.POSITIVE_INFINITY)
+		if (pa == pb)
 			return; //not seen
 		x1 = (int)(10 + zoom*Point.to01(pa));
 		x2 = (int)(10 + zoom*Point.to01(pb));
