@@ -14,7 +14,7 @@
 	
 	<target name="build">
 		<mkdir dir="${build.dir}" />
-		<javac srcdir="${src.dir}" includeantruntime="false" classpath="${junit.cp}" destdir="${build.dir}" encoding="UTF-8" />
+		<javac srcdir="${src.dir}" includeantruntime="false" classpath="${junit.cp}" destdir="${build.dir}" encoding="UTF-8" debug="true" />
 	</target>
 	<target name="test" depends="build">
 		<mkdir dir="${reports.dir}" />
