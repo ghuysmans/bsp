@@ -56,6 +56,10 @@ public class Point {
 		return new Point(x-p.x, y-p.y);
 	}
 
+	public Point move(Point v) {
+		return new Point(x+v.x, y+v.y);
+	}
+
 	public float dot(Point vector) {
 		return x*vector.x + y*vector.y;
 	}
@@ -65,25 +69,6 @@ public class Point {
 	 */
 	public float angle(Point vector) {
 		return (float)Math.acos(dot(vector) / norm() / vector.norm());
-	}
-
-	/**
-	 * Projects p on a unit segment.
-	 * @param v direction vector
-	 * @param pov point of view
-	 * @param fov field of view (strictly positive, in radians)
-	 * @return position on a [0,1] segment or infty when too far on the L/R.
-	 */
-	public float project(Point v, Point pov, float fov) {
-		Point u = v.rotate(Point.ORIGIN, fov/2); //upper vector
-		Point d = from(pov); //distance vector
-		float tu=d.angle(u), tv=d.angle(v);
-		if (tv <= fov/2)
-			return 1 - tu/fov;
-		else if (close(tv-tu, fov/2))
-			return Float.POSITIVE_INFINITY;
-		else
-			return Float.NEGATIVE_INFINITY;
 	}
 
 	public Point(float x, float y) {

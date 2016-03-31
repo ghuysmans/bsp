@@ -5,11 +5,10 @@ import java.util.List;
  * A decent painter
  * @see "Computational Geometry (Mark de Berg et al.), page 255"
  */
-public class RealPainter implements Painter {
+public class RealPainter extends Painter {
 	protected final BSP bsp;
-	protected final Point pov;
 
-	/** The callback class is stored here to avoid pushing useless refs. */
+	//The callback class is stored here to avoid pushing useless refs.
 	private PainterCallback callback;
 
 	@Override
@@ -50,8 +49,14 @@ public class RealPainter implements Painter {
 			callback.draw(s);
 	}
 
-	public RealPainter(BSP bsp, Point pov) {
-		this.bsp = bsp;
-		this.pov = pov;
+	/**
+	 * @param v direction vector
+	 * @param p camera position
+	 * @param f field of view (strictly positive, in radians)
+	 * @param b BSP
+	 */
+	protected RealPainter(Point v, Point p, float f, BSP b) {
+		super(v, p, f);
+		bsp = b;
 	}
 }

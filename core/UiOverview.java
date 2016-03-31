@@ -6,7 +6,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 
-class UiOverview extends JPanel implements MouseListener {
+class UiOverview extends JPanel implements MouseListener, PainterCallback {
 	protected TestUI ui;
 	float zoom = 40;
 	Point dir; //vector
@@ -14,6 +14,8 @@ class UiOverview extends JPanel implements MouseListener {
 	Point prev;
 	Point ofs = new Point(0, 0);
 	float angle = (float)Math.toRadians(60);
+	Painter painter;
+	private Graphics g;
 
 	/**
 	 * Convert scene to screen coordinates
@@ -36,7 +38,7 @@ class UiOverview extends JPanel implements MouseListener {
 	/**
 	 * Draw a point.
 	 */
-	protected void draw(Graphics g, Point p) {
+	protected void draw(Point p) {
 		java.awt.Point s = convert(p);
 		g.fillOval(s.x-5, s.y-5, 10, 10);
 	}
@@ -44,7 +46,7 @@ class UiOverview extends JPanel implements MouseListener {
 	/**
 	 * Draw a segment.
 	 */
-	protected void draw(Graphics g, Segment s) {
+	public void draw(Segment s) {
 		java.awt.Point p = convert(s.p);
 		java.awt.Point q = convert(s.q);
 		g.setColor(s.color);
@@ -54,31 +56,31 @@ class UiOverview extends JPanel implements MouseListener {
 	/**
 	 * Draw an ugly camera.
 	 */
-	protected void drawCamera(Graphics g) {
+	protected void drawCamera() {
 		Point p = new Point(pov.x+dir.x, pov.y+dir.y);
-		draw(g, new Segment(pov, p, Color.GRAY.brighter()));
+		draw(new Segment(pov, p, Color.GRAY.brighter()));
 		Point p1 = p.rotate(pov, angle/2);
 		Point p2 = p.rotate(pov, -angle/2);
-		draw(g, new Segment(pov, p1, Color.RED));
-		draw(g, new Segment(pov, p2, Color.RED));
+		draw(new Segment(pov, p1, Color.RED));
+		draw(new Segment(pov, p2, Color.RED));
 		g.setColor(Color.GRAY.brighter());
-		draw(g, pov);
+		draw(pov);
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		if (ui.scene == null) {
+		if (painter == null) {
 			g.setColor(Color.RED);
 			g.drawLine(0, 0, getWidth(), getHeight());
 			g.drawLine(0, getHeight(), getWidth(), 0);
 		}
 		else {
-			for (Segment s: ui.scene.segments)
-				draw(g, s);
+			this.g = g;
+			painter.work(this);
 			if (dir != null)
-				drawCamera(g);
+				drawCamera();
 		}
 	}
 
@@ -101,7 +103,8 @@ class UiOverview extends JPanel implements MouseListener {
 				revalidate();
 				repaint();
 				//paint what we can see
-				JPanel c = new UiCanvas(this, new Noobie(ui.scene.segments), true);
+				Painter pt = new Noobie(dir, pov, angle, ui.scene.segments);
+				JPanel c = new UiCanvas(this, pt, true);
 				JFrame f = new JFrame();
 				f.setTitle("Painter's View");
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -125,6 +128,7 @@ class UiOverview extends JPanel implements MouseListener {
 
 	public UiOverview(TestUI ui) {
 		this.ui = ui;
+		painter = new Noobie(ui.scene.segments);
 		addMouseListener(this);
 	}
 }

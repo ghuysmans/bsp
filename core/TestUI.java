@@ -54,11 +54,11 @@ class TestUI extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 500);
 		setLocationByPlatform(true);
-		setVisible(true);
 		initMenus();
-		setContentPane(panel = new UiOverview(this));
 		if (initialScene != null)
 			loadScene(initialScene);
+		setContentPane(panel = new UiOverview(this));
+		setVisible(true);
 	}
 
 	public static void main(String[] args) {

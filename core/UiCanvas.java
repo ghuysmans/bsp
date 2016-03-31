@@ -16,18 +16,16 @@ class UiCanvas extends JPanel implements PainterCallback {
 	 */
 	@Override
 	public void draw(Segment s) {
-		float pa = s.p.project(overview.dir, overview.pov, overview.angle);
-		float pb = s.q.project(overview.dir, overview.pov, overview.angle);
-		int x1, x2;
-		if (pa == pb)
+		Projection p = painter.project(s);
+		if (p == null)
 			return; //not seen
-		x1 = (int)(10 + zoom*Point.to01(pa));
-		x2 = (int)(10 + zoom*Point.to01(pb));
 		g.setColor(s.color);
-		g.drawLine(x1, y, x2, y);
+		int a = 40 + (int)(Point.to01(p.a) * zoom);
+		int b = 40 + (int)(Point.to01(p.b) * zoom);
+		g.drawLine(a, y, b, y);
 		if (decomposed) {
 			g.setColor(Color.GRAY);
-			g.drawLine(x1, 30, x1, 30+3*10);
+			g.drawLine(a, 30, a, 30+3*10);
 			y += 3;
 		}
 	}
