@@ -54,4 +54,15 @@ public class SegmentTest {
 		Segment s2 = new Segment(new Point(0, 1), d, C);
 		assertEquals(d, s.intersection(s2));
 	}
+
+	@Test
+	public void ppd() {
+		Point one = new Point(1, 1);
+		Segment s = new Segment(Point.ORIGIN, one, C);
+		Segment t = s.perpendicular(Point.ORIGIN);
+		Segment u = t.perpendicular(Point.ORIGIN);
+		assertEquals(s.position(one), u.position(one), Point.EPSILON);
+		assertNotEquals(s.position(one), t.position(one), Point.EPSILON);
+		assertEquals(0, t.position(new Point(-1, 1)), Point.EPSILON);
+	}
 }

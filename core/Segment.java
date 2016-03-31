@@ -3,7 +3,7 @@ import java.awt.Color;
 
 public class Segment {
 	/**
-	 * Line coefficients.
+	 * Line coefficients in ax+by+c=0
 	 */
 	public final float a, b, c;
 
@@ -50,6 +50,13 @@ public class Segment {
 		}
 	}
 
+	/**
+	 * Compute a perpendicular line, not a segment.
+	 */
+	public Segment perpendicular(Point p) {
+		return new Segment(-b, a, b*p.x - a*p.y);
+	}
+
 	public String toString() {
 		return p+" -- "+q+": "+a+"x + "+b+"y + "+c+" = 0";
 	}
@@ -82,6 +89,18 @@ public class Segment {
 			b = p.x - q.x;
 			c = -b*q.y - a*q.x;
 		}
+	}
+
+	/**
+	 * Constructs a line that won't be usable as a segment.
+	 * It can't be compared to others since p==null==q.
+	 */
+	private Segment(float a, float b, float c) {
+		p = q = null;
+		color = null;
+		this.a = a;
+		this.b = b;
+		this.c = c;
 	}
 
 	public static Segment load(String s) throws FormatException {
