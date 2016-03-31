@@ -30,5 +30,8 @@ public class PainterTest {
 		assertEquals(.25, pt.project(r), 0.1);
 		Point s = new Point(-.61F, 1.63F);
 		assertEquals(Float.NEGATIVE_INFINITY, pt.project(s), 1);
+		assertNull(pt.project(new Segment(
+			new Point(3.2F, 3.1F), new Point(0.8F, 4.2F), null)));
+		assertNotNull(pt.project(new Segment(q, r, null)));
 	}
 }
