@@ -8,7 +8,8 @@ public class BSP {
 	public LinkedList<Segment> items;
 
 	/**
-	 * @note useful for testing construction algorithms!
+	 * Test whether the given segment lies completely in the BSP.
+	 * This is also useful for testing construction algorithms!
 	 */
 	public boolean contains(Segment segment) {
 		if (separator == null)

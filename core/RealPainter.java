@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * A decent painter
- * @see "Computational Geometry" (Mark de Berg et al.), page 255
+ * @see "Computational Geometry (Mark de Berg et al.), page 255"
  */
 public class RealPainter implements Painter {
 	protected final BSP bsp;
