@@ -75,19 +75,15 @@ public class Point {
 	 * @return position on a [0,1] segment or infty when too far on the L/R.
 	 */
 	public float project(Point v, Point pov, float fov) {
-		return 1 - projectInv(v, pov, fov);
-	}
-
-	private float projectInv(Point v, Point pov, float fov) {
 		Point u = v.rotate(Point.ORIGIN, fov/2); //upper vector
 		Point d = from(pov); //distance vector
 		float tu=d.angle(u), tv=d.angle(v);
 		if (tv <= fov/2)
-			return tu/fov;
+			return 1 - tu/fov;
 		else if (close(tv-tu, fov/2))
-			return Float.NEGATIVE_INFINITY;
-		else
 			return Float.POSITIVE_INFINITY;
+		else
+			return Float.NEGATIVE_INFINITY;
 	}
 
 	public Point(float x, float y) {
