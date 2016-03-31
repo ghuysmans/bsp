@@ -1,26 +1,13 @@
 package core;
 import java.awt.Color;
 
-public class Segment {
-	/**
-	 * Line coefficients in ax+by+c=0
-	 */
-	public final float a, b, c;
-
-	/**
-	 * Both ends.
-	 */
+/**
+ * A segment is something more precise than a line,
+ * not mathematically a line... (just to be clear)
+ */
+public class Segment extends Line {
 	public final Point p, q;
-
 	public final Color color;
-
-	/**
-	 * Get the position of p relative to this segment.
-	 * The return value is used to browse BSP trees.
-	 */
-	public float position(Point p) {
-		return a*p.x + b*p.y + c;
-	}
 
 	/**
 	 * Create a segment with a new destination.
@@ -50,13 +37,6 @@ public class Segment {
 		}
 	}
 
-	/**
-	 * Compute a perpendicular line, not a segment.
-	 */
-	public Segment perpendicular(Point p) {
-		return new Segment(-b, a, b*p.x - a*p.y);
-	}
-
 	public String toString() {
 		return p+" -- "+q+": "+a+"x + "+b+"y + "+c+" = 0";
 	}
@@ -71,36 +51,10 @@ public class Segment {
 	 * Constructs a Segment ensuring that Segment(p,q)==Segment(q,p).
 	 */
 	public Segment(Point p, Point q, Color color) {
+		super(p.y-q.y, q.x-p.x, -(q.x-p.x)*p.y - (p.y-q.y)*p.x);
 		this.p = p;
 		this.q = q;
 		this.color = color;
-		if (p.y < q.y) {
-			a = p.y - q.y;
-			b = q.x - p.x;
-			c = -b*p.y - a*p.x;
-		}
-		else {
-			/*
-			 The same as above, p and q were just swapped. Duplication
-			 was necessary since we can't use a constructor in an if
-			 block (it must appear first in the constructor).
-			 */
-			a = q.y - p.y;
-			b = p.x - q.x;
-			c = -b*q.y - a*q.x;
-		}
-	}
-
-	/**
-	 * Constructs a line that won't be usable as a segment.
-	 * It can't be compared to others since p==null==q.
-	 */
-	private Segment(float a, float b, float c) {
-		p = q = null;
-		color = null;
-		this.a = a;
-		this.b = b;
-		this.c = c;
 	}
 
 	public static Segment load(String s) throws FormatException {
