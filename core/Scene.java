@@ -20,11 +20,11 @@ public class Scene {
 		colors.put("Orange", Color.ORANGE);
 		colors.put("Jaune", Color.YELLOW);
 		colors.put("Noir", Color.BLACK);
-		colors.put("Violet", Color.PINK.darker().darker()); //TODO compare
-		colors.put("Marron", Color.ORANGE.darker().darker()); //TODO compare
+		colors.put("Violet", Color.PINK.darker()); //TODO compare
+		colors.put("Marron", Color.ORANGE.darker()); //TODO compare
 		colors.put("Vert", Color.GREEN);
 		colors.put("Gris", Color.GRAY);
-		colors.put("Rose", Color.PINK);
+		colors.put("Rose", new Color(255, 0, 255));
 	}
 
 	public static Color getColor(String s) throws FormatException {
