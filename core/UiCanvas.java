@@ -23,6 +23,7 @@ class UiCanvas extends JPanel implements PainterCallback {
 		int a = 40 + (int)(Point.to01(p.a) * zoom);
 		int b = 40 + (int)(Point.to01(p.b) * zoom);
 		g.drawLine(a, y, b, y);
+		g.drawLine(a, y+1, b, y+1);
 		if (decomposed) {
 			g.setColor(Color.GRAY);
 			g.drawLine(a, 30, a, 30+3*10);

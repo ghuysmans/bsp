@@ -51,6 +51,7 @@ class UiOverview extends JPanel implements MouseListener, PainterCallback {
 		java.awt.Point q = convert(s.q);
 		g.setColor(s.color);
 		g.drawLine(p.x, p.y, q.x, q.y);
+		g.drawLine(p.x, p.y+1, q.x, q.y+1);
 	}
 
 	/**
