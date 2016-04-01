@@ -1,7 +1,7 @@
 package core;
 import java.util.Set;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Collection;
 
 public class BSP {
 	public Segment separator;
@@ -100,38 +100,31 @@ public class BSP {
 			return 1 + Math.max(positive.height(), negative.height());
 	}
 
-	public static BSP build(List<Segment> segments, Heuristic h) {
-		return build(new HashSet<Segment>(segments), h); //copy
-	}
-
 	/**
-	 * Build a BSP from a segment set
-	 * @param set segment set, destroyed!
+	 * Build a BSP from a collection of segments
+	 * @param set segment collection
 	 * @param h heuristic for separator selection
 	 */
-	protected static BSP build(Set<Segment> set, Heuristic h) {
+	public static BSP build(Collection<Segment> set, Heuristic h) {
 		if (set.size() <= 1)
-			return new BSP(set, null, null, null); //leaf
+			return new BSP(new HashSet<Segment>(set), null, null, null); //leaf
 		else {
 			Segment separator = h.choose(set);
+			Set<Segment> items = new HashSet<Segment>();
 			Set<Segment> positive = new HashSet<Segment>();
 			Set<Segment> negative = new HashSet<Segment>();
 			for (Segment segment: set) {
 				float a = separator.position(segment.p);
 				float b = separator.position(segment.q);
 				if (Point.close(a, 0) && Point.close(b, 0))
-					; //completely inside of the separator's line
-				else if (a>0 && b>0) {
-					set.remove(segment);
+					//completely inside of the separator's line
+					items.add(segment);
+				else if (a>0 && b>0)
 					positive.add(segment);
-				}
-				else if (a<0 && b<0) {
-					set.remove(segment);
+				else if (a<0 && b<0)
 					negative.add(segment);
-				}
 				else {
 					//split (worst case)
-					set.remove(segment);
 					Point inter = segment.intersection(separator);
 					//inter isn't null since p and q are on different sides
 					if (a < 0) {
@@ -144,7 +137,7 @@ public class BSP {
 					}
 				}
 			}
-			return new BSP(set, separator, build(positive,h), build(negative,h));
+			return new BSP(items, separator, build(positive,h), build(negative,h));
 		}
 	}
 
