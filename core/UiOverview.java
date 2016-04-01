@@ -130,6 +130,8 @@ class UiOverview extends JPanel implements MouseListener, PainterCallback {
 		this.ui = ui;
 		painter = new Noobie(ui.scene.segments);
 		bsp = BSP.build(ui.scene.segments, new First());
+		System.out.println(bsp.nodes()+" nodes, height="+bsp.height());
+		System.out.println(bsp);
 		addMouseListener(this);
 	}
 }
