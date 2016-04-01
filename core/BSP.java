@@ -78,6 +78,28 @@ public class BSP {
 		return sb.toString();
 	}
 
+	public int nodes() {
+		if (positive==null && negative==null)
+			return 1;
+		else if (positive == null)
+			return 1 + positive.nodes();
+		else if (negative == null)
+			return 1 + negative.nodes();
+		else
+			return 1 + positive.nodes() + negative.nodes();
+	}
+
+	public int height() {
+		if (positive==null && negative==null)
+			return 1;
+		else if (positive == null)
+			return 1 + positive.height();
+		else if (negative == null)
+			return 1 + negative.height();
+		else
+			return 1 + Math.max(positive.height(), negative.height());
+	}
+
 	public static BSP build(List<Segment> segments, Heuristic h) {
 		return build(new HashSet<Segment>(segments), h); //copy
 	}
