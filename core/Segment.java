@@ -9,6 +9,30 @@ public class Segment extends Line {
 	public final Point p, q;
 	public final Color color;
 
+	public boolean contains(Point r) {
+		float x1 = Math.min(p.x, q.x);
+		float x2 = Math.max(p.x, q.x);
+		float y1 = Math.min(p.y, q.y);
+		float y2 = Math.max(p.y, q.y);
+		return x1<=r.x && r.x<=x2 && y1<=r.y && r.y<=y2;
+	}
+
+	public Point intersection(Line l) {
+		Point i = super.intersection(l);
+		if (i==null || !contains(i))
+			return null;
+		else
+			return i;
+	}
+
+	public Point intersection(Segment s) {
+		Point i = intersection((Line)s);
+		if (i==null || !s.contains(i))
+			return null;
+		else
+			return i;
+	}
+
 	/**
 	 * Create a segment with a new destination.
 	 */
@@ -21,20 +45,6 @@ public class Segment extends Line {
 	 */
 	public Segment from(Point p) {
 		return new Segment(p, q, color);
-	}
-
-	/**
-	 * Compute the intersection between lines, not segments.
-	 * @return null if there isn't any.
-	 */
-	public Point intersection(Segment s) {
-		float d1 = b*s.a - a*s.b;
-		if (Point.close(d1, 0) || Point.close(s.a, 0))
-			return null;
-		else {
-			float y = (-c*s.a+a*s.c)/d1;
-			return new Point((-s.c-s.b*y)/s.a, y);
-		}
 	}
 
 	public String toString() {

@@ -48,21 +48,10 @@ public class SegmentTest {
 	}
 
 	@Test
-	public void inter() {
+	public void noInter2() {
 		Point d = new Point(2, 2);
 		Segment s = new Segment(new Point(0, 0), new Point(1, 1), C);
 		Segment s2 = new Segment(new Point(0, 1), d, C);
-		assertEquals(d, s.intersection(s2));
-	}
-
-	@Test
-	public void ppd() {
-		Point one = new Point(1, 1);
-		Segment s = new Segment(Point.ORIGIN, one, C);
-		Line t = s.perpendicular(Point.ORIGIN);
-		Line u = t.perpendicular(Point.ORIGIN);
-		assertEquals(s.position(one), u.position(one), Point.EPSILON);
-		assertNotEquals(s.position(one), t.position(one), Point.EPSILON);
-		assertEquals(0, t.position(new Point(-1, 1)), Point.EPSILON);
+		assertNull(s.intersection(s2));
 	}
 }
