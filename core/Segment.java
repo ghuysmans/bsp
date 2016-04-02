@@ -48,7 +48,7 @@ public class Segment extends Line {
 	}
 
 	public String toString() {
-		return p+" -- "+q+": "+a+"x + "+b+"y + "+c+" = 0";
+		return p+" -- "+q+": "+super.toString();
 	}
 
 	public boolean equals(Object other) {

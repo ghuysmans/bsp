@@ -34,6 +34,10 @@ public class Line {
 		return new Line(-b, a, b*p.x - a*p.y);
 	}
 
+	public String toString() {
+		return a+"x + "+b+"y + "+c+" = 0";
+	}
+
 	public Line(float a, float b, float c) {
 		//ensure segments uniqueness
 		this.a = a<0 ? a : -a;
