@@ -1,7 +1,7 @@
 package core;
 
 public class Point {
-	public static final float EPSILON = 0.00001F;
+	public static final float EPSILON = 5E-4F;
 	public static final Point ORIGIN = new Point(0, 0);
 
 	public final float x;
