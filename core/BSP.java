@@ -121,9 +121,9 @@ public class BSP {
 				if (Point.close(a, 0) && Point.close(b, 0))
 					//completely inside of the separator's line
 					items.add(segment);
-				else if (a>0 && b>0)
+				else if (a>=0 && b>=0)
 					positive.add(segment);
-				else if (a<0 && b<0)
+				else if (a<=0 && b<=0)
 					negative.add(segment);
 				else {
 					//split (worst case)
