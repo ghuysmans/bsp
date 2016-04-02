@@ -28,6 +28,6 @@ public class Noobie extends Painter {
 	 * @param s segment list
 	 */
 	public Noobie(List<Segment> s) {
-		this(Point.ORIGIN, Point.ORIGIN, 1, s);
+		this(new Point(1, 1), Point.ORIGIN, 1, s);
 	}
 }
