@@ -125,7 +125,7 @@ public class BSP {
 					negative.add(segment);
 				else {
 					//split (worst case)
-					Point inter = segment.intersection(separator);
+					Point inter = segment.intersection((Line)separator);
 					//inter isn't null since p and q are on different sides
 					if (a < 0) {
 						negative.add(segment.to(inter));
