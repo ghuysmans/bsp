@@ -46,11 +46,17 @@
 	<target name="run" depends="build">
 		<java classpath="${build.dir}:." classname="${main-class}" fork="true">
 			<arg line="${SCENE}" />
+			<assertions>
+				<enable />
+			</assertions>
 		</java>
 	</target>
 	<target name="run-debug" depends="build">
 		<java classpath="${build.dir}:." classname="${main-class}" fork="true">
 			<arg line="tests/straight.txt" />
+			<assertions>
+				<enable />
+			</assertions>
 		</java>
 	</target>
 	<target name="run-jar" depends="jar">
