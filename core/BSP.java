@@ -114,8 +114,6 @@ public class BSP {
 			Set<Segment> positive = new HashSet<Segment>();
 			Set<Segment> negative = new HashSet<Segment>();
 			for (Segment segment: set) {
-				if (segment == separator)
-					continue;
 				float a = separator.position(segment.p);
 				float b = separator.position(segment.q);
 				if (Point.close(a, 0) && Point.close(b, 0))
