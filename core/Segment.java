@@ -10,10 +10,10 @@ public class Segment extends Line {
 	public final Color color;
 
 	public boolean contains(Point r) {
-		float x1 = Math.min(p.x, q.x);
-		float x2 = Math.max(p.x, q.x);
-		float y1 = Math.min(p.y, q.y);
-		float y2 = Math.max(p.y, q.y);
+		float x1 = Math.min(p.x, q.x) - Point.EPSILON;
+		float x2 = Math.max(p.x, q.x) + Point.EPSILON;
+		float y1 = Math.min(p.y, q.y) - Point.EPSILON;
+		float y2 = Math.max(p.y, q.y) + Point.EPSILON;
 		return x1<=r.x && r.x<=x2 && y1<=r.y && r.y<=y2;
 	}
 
