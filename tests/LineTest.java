@@ -26,6 +26,13 @@ public class LineTest {
 	}
 
 	@Test
+	public void interHorizontal() {
+		Line h = new Line(0, 1, -2);
+		Line u = new Line(-1, 1, 0);
+		assertEquals(new Point(2, 2), u.intersection(h));
+	}
+
+	@Test
 	public void ppd() {
 		Point one = new Point(1, 1);
 		Segment s = new Segment(Point.ORIGIN, one, C);
