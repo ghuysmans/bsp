@@ -128,12 +128,16 @@ public class BSP {
 					Point inter = segment.intersection((Line)separator);
 					//inter isn't null since p and q are on different sides
 					if (a < 0) {
-						negative.add(segment.to(inter));
-						positive.add(segment.from(inter));
+						if (!segment.p.equals(inter))
+							negative.add(segment.to(inter));
+						if (!segment.q.equals(inter))
+							positive.add(segment.from(inter));
 					}
 					else {
-						positive.add(segment.to(inter));
-						negative.add(segment.from(inter));
+						if (!segment.p.equals(inter))
+							positive.add(segment.to(inter));
+						if (!segment.q.equals(inter))
+							negative.add(segment.from(inter));
 					}
 				}
 			}
