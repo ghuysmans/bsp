@@ -15,16 +15,15 @@ public class Line {
 	}
 
 	/**
+	 * Compute the intersection between lines using Cramer's method
 	 * @return null if there isn't any.
 	 */
 	public Point intersection(Line s) {
-		float d1 = b*s.a - a*s.b;
-		if (Point.close(d1, 0) || Point.close(s.a, 0))
+		float delta = a*s.b - s.a*b;
+		if (Point.close(delta, 0))
 			return null;
-		else {
-			float y = (-c*s.a+a*s.c)/d1;
-			return new Point((-s.c-s.b*y)/s.a, y);
-		}
+		else
+			return new Point((s.c*b-c*s.b)/delta, (s.a*c-a*s.c)/delta);
 	}
 
 	/**
