@@ -7,11 +7,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import java.io.IOException;
 
 class TestUI extends JFrame implements ActionListener {
 	public Scene scene;
-	protected JPanel panel;
 	protected final JMenuBar menuBar = new JMenuBar();
 	protected final JMenu menuHelp = new JMenu("Help");
 	protected final JMenuItem menuManual = new JMenuItem("Manual");
@@ -55,9 +56,13 @@ class TestUI extends JFrame implements ActionListener {
 		setSize(600, 500);
 		setLocationByPlatform(true);
 		initMenus();
-		if (initialScene != null)
+		if (initialScene != null) {
 			loadScene(initialScene);
-		setContentPane(panel = new UiOverview(this));
+			BSP bsp = BSP.build(scene.segments, new First()); //FIXME terrible
+			setContentPane(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				new JScrollPane(new UiTree(initialScene, bsp)),
+				new UiOverview(this)));
+		}
 		setVisible(true);
 	}
 
