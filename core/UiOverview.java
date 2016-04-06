@@ -16,7 +16,6 @@ class UiOverview extends JPanel implements MouseListener, PainterCallback {
 	float angle = (float)Math.toRadians(60);
 	Painter painter;
 	private Graphics g;
-	BSP bsp;
 
 	/**
 	 * Convert scene to screen coordinates
@@ -105,7 +104,7 @@ class UiOverview extends JPanel implements MouseListener, PainterCallback {
 				revalidate();
 				repaint();
 				//paint what we can see
-				painter = new RealPainter(dir, pov, angle, bsp);
+				painter = new RealPainter(dir, pov, angle, ui.bsp);
 				JPanel c = new UiCanvas(this, painter, true);
 				JFrame f = new JFrame();
 				f.setTitle("Painter's View");
@@ -129,8 +128,7 @@ class UiOverview extends JPanel implements MouseListener, PainterCallback {
 	public UiOverview(TestUI ui) {
 		this.ui = ui;
 		painter = new Noobie(ui.scene.segments);
-		bsp = BSP.build(ui.scene.segments, new First());
-		System.out.println(bsp.nodes()+" nodes, height="+bsp.height());
+		System.out.println(ui.bsp.nodes()+" nodes, height="+ui.bsp.height());
 		addMouseListener(this);
 	}
 }

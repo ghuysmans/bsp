@@ -13,14 +13,20 @@ import java.io.IOException;
 
 class TestUI extends JFrame implements ActionListener {
 	public Scene scene;
+	public BSP bsp;
+
 	protected final JMenuBar menuBar = new JMenuBar();
 	protected final JMenu menuHelp = new JMenu("Help");
 	protected final JMenuItem menuManual = new JMenuItem("Manual");
 	protected final JMenuItem menuAbout = new JMenuItem("About...");
 
-	public void loadScene(String filename) {
+	public void loadScene(String filename, Heuristic heuristic) {
 		try {
 			scene = new Scene(filename);
+			bsp = BSP.build(scene.segments, heuristic);
+			setContentPane(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				new JScrollPane(new UiTree(filename, bsp)),
+				new UiOverview(this)));
 			revalidate();
 			repaint();
 		}
@@ -50,23 +56,20 @@ class TestUI extends JFrame implements ActionListener {
 		return JOptionPane.showInputDialog(this, title, dflt);
 	}
 
-	public TestUI(String initialScene) {
+	public TestUI(String initialScene, Heuristic heuristic) {
 		setTitle("BSP Viewer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 500);
 		setLocationByPlatform(true);
 		initMenus();
-		if (initialScene != null) {
-			loadScene(initialScene);
-			BSP bsp = BSP.build(scene.segments, new First()); //FIXME terrible
-			setContentPane(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				new JScrollPane(new UiTree(initialScene, bsp)),
-				new UiOverview(this)));
-		}
+		if (initialScene == null)
+			setContentPane(new UiLoad(this));
+		else
+			loadScene(initialScene, heuristic);
 		setVisible(true);
 	}
 
 	public static void main(String[] args) {
-		new TestUI(args.length==1 ? args[0] : null);
+		new TestUI(args.length==1 ? args[0] : null, new First());
 	}
 }
