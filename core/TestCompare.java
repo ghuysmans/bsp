@@ -7,7 +7,7 @@ import java.lang.management.ThreadMXBean;
  * Main class for the text-based heuristic comparison tool
  */
 class TestCompare {
-	protected static final NANO_TO_SEC = 1E9;
+	protected static final double NANO_TO_SEC = 1E9;
 	protected final ThreadMXBean timer;
 
 	protected void report(String descr, long ref_cpu, long ref_wallclock) {
