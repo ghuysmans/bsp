@@ -1,5 +1,5 @@
 package core;
-import java.util.Set;
+import java.util.List;
 
 /**
  * A decent painter
@@ -41,7 +41,7 @@ public class RealPainter extends Painter {
 		}
 	}
 
-	private void scanConvert(Set<Segment> segments) {
+	private void scanConvert(List<Segment> segments) {
 		//this should not happen since we only use auto-partitions
 		assert(segments != null);
 

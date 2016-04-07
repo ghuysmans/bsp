@@ -1,13 +1,12 @@
 package core;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
 
 public class BSP {
-	public Segment separator;
+	public Line separator;
 	public BSP negative;
 	public BSP positive;
-	public Set<Segment> items;
+	public List<Segment> items;
 
 	/**
 	 * Test whether the given segment lies completely in the BSP.
@@ -105,14 +104,14 @@ public class BSP {
 	 * @param set segment collection
 	 * @param h heuristic for separator selection
 	 */
-	public static BSP build(Collection<Segment> set, Heuristic h) {
+	public static BSP build(List<Segment> set, Heuristic h) {
 		if (set.size() <= 1)
-			return new BSP(new HashSet<Segment>(set), null, null, null); //leaf
+			return new BSP(set, null, null, null); //leaf
 		else {
-			Segment separator = h.choose(set);
-			Set<Segment> items = new HashSet<Segment>();
-			Set<Segment> positive = new HashSet<Segment>();
-			Set<Segment> negative = new HashSet<Segment>();
+			Line separator = set.get(h.choose(set));
+			List<Segment> items = new ArrayList<Segment>();
+			List<Segment> positive = new ArrayList<Segment>();
+			List<Segment> negative = new ArrayList<Segment>();
 			for (Segment segment: set) {
 				float a = separator.position(segment.p);
 				float b = separator.position(segment.q);
@@ -125,7 +124,7 @@ public class BSP {
 					negative.add(segment);
 				else {
 					//split (worst case)
-					Point inter = segment.intersection((Line)separator);
+					Point inter = segment.intersection(separator);
 					//inter isn't null since p and q are on different sides
 					if (a < 0) {
 						if (!segment.p.equals(inter))
@@ -145,7 +144,7 @@ public class BSP {
 		}
 	}
 
-	public BSP(Set<Segment> s, Segment sep, BSP pos, BSP neg) {
+	public BSP(List<Segment> s, Line sep, BSP pos, BSP neg) {
 		items = s;
 		separator = sep;
 		positive = pos;

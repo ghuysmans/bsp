@@ -1,6 +1,6 @@
 package core;
-import java.util.Collection;
+import java.util.List;
 
 public interface Heuristic {
-	public Segment choose(Collection<Segment> segments);
+	public int choose(List<Segment> segments);
 }

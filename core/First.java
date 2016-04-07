@@ -1,9 +1,9 @@
 package core;
-import java.util.Collection;
+import java.util.List;
 
 public class First implements Heuristic {
 	@Override
-	public Segment choose(Collection<Segment> segments) {
-		return segments.iterator().next();
+	public int choose(List<Segment> segments) {
+		return 0;
 	}
 }
