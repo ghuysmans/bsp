@@ -9,6 +9,7 @@
 	<property name="test.bin" value="tests/*Test.class" />
 	<property name="root-pkg" value="core" />
 	<property name="main-class" value="${root-pkg}.TestUI" />
+	<property name="cmp-class" value="${root-pkg}.TestCompare" />
 	<property name="jar.dir" value="." />
 	<property name="jar.name" value="${jar.dir}/bsp.jar" />
 	
@@ -42,6 +43,21 @@
 				<attribute name="main-class" value="${main-class}"/>
 			</manifest>
 		</jar>
+	</target>
+	<target name="c" depends="build">
+		<java classpath="${build.dir}:." classname="${cmp-class}" fork="true">
+			<assertions>
+				<enable />
+			</assertions>
+		</java>
+	</target>
+	<target name="compare" depends="build">
+		<java classpath="${build.dir}:." classname="${cmp-class}" fork="true">
+			<arg line="${SCENE}" />
+			<assertions>
+				<enable />
+			</assertions>
+		</java>
 	</target>
 	<target name="r" depends="build">
 		<java classpath="${build.dir}:." classname="${main-class}" fork="true">
