@@ -1,25 +1,39 @@
 package core;
-import java.awt.Color;
+import java.util.Scanner;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 
 /**
  * Main class for the text-based heuristic comparison tool
  */
 class TestCompare {
-	public static void main(String[] args) {
-		if (args.length == 6) {
-			Segment s;
-			float a, b, c, d, e, f;
-			a = Float.parseFloat(args[0]);
-			b = Float.parseFloat(args[1]);
-			c = Float.parseFloat(args[2]);
-			d = Float.parseFloat(args[3]);
-			e = Float.parseFloat(args[4]);
-			f = Float.parseFloat(args[5]);
-			s = new Segment(new Point(a,b), new Point(c,d), Color.BLACK);
-			System.out.println(s);
-			System.out.println(s.position(new Point(e,f)));
+	protected static final NANO_TO_SEC = 1E9;
+	protected final ThreadMXBean timer;
+
+	protected void report(String descr, long ref_cpu, long ref_wallclock) {
+		double cpu = (timer.getCurrentThreadCpuTime()-ref_cpu) / NANO_TO_SEC;
+		double wallclock = (System.nanoTime()-ref_wallclock) / NANO_TO_SEC;
+		System.out.printf("%-20s%.2f\t%.2f\n", descr, cpu, wallclock);
+	}
+
+	public TestCompare(String scene) {
+		Scanner sc = new Scanner(System.in);
+		timer = ManagementFactory.getThreadMXBean();
+		try {
+			while (true) {
+				System.out.print(">>> ");
+				sc.next();
+				long t = timer.getCurrentThreadCpuTime();
+				long w = System.nanoTime();
+				Thread.currentThread().sleep(2000);
+				report("sleep 2K", t, w);
+			}
 		}
-		else
-			System.out.println("order: (a,b)--(c,d) (e,f)");
+		catch (Exception e) {
+		}
+	}
+
+	public static void main(String[] args) {
+		new TestCompare(args.length==1 ? args[0] : null);
 	}
 }
