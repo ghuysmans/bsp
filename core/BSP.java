@@ -47,41 +47,6 @@ public class BSP {
 		}
 	}
 
-	//TODO del
-	protected void indent(StringBuilder sb, int amount) {
-		for (int i=0; i<amount; i++)
-			sb.append('\t');
-	}
-
-	protected void append(StringBuilder sb, BSP bst, int indent) {
-		if (bst == null) {
-			indent(sb, indent);
-			sb.append("null\n");
-		}
-		else {
-			if (bst.separator != null) {
-				append(sb, bst.negative, indent+1);
-				indent(sb, indent);
-				sb.append("SEP ");
-				sb.append(bst.separator);
-				sb.append('\n');
-			}
-			for (Segment s: bst.items) {
-				indent(sb, indent);
-				sb.append(s);
-				sb.append('\n');
-			}
-			if (bst.separator != null)
-				append(sb, bst.positive, indent+1);
-		}
-	}
-
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		append(sb, this, 0);
-		return sb.toString();
-	}
-
 	/**
 	 * Count nodes
 	 * @return number of nodes
