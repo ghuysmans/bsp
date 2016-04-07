@@ -54,4 +54,19 @@ public class SegmentTest {
 		Segment s2 = new Segment(new Point(0, 1), d, C);
 		assertNull(s.intersection(s2));
 	}
+
+	@Test
+	public void equals() {
+		Point p = new Point(1, 1);
+		Point q = new Point(2, 0);
+		Segment s = new Segment(Point.ORIGIN, p, C);
+		Segment t = new Segment(p, Point.ORIGIN, C);
+		Segment u = new Segment(p, q, C);
+		assertTrue(s.equals(s));
+		assertTrue(t.equals(t));
+		assertTrue(s.equals(t));
+		assertFalse(s.equals(u));
+		assertTrue(t.equals(s));
+		assertFalse(t.equals(u));
+	}
 }

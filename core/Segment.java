@@ -61,11 +61,11 @@ public class Segment extends Line {
 		return p+" -- "+q+": "+super.toString();
 	}
 
-	//TODO symmetry?
 	public boolean equals(Object other) {
 		Segment s;
-		return other instanceof Segment &&
-			(s=(Segment)other).p.equals(p) && s.q.equals(q);
+		return other instanceof Segment && (
+			((s=(Segment)other).p.equals(p) && s.q.equals(q)) ||
+			(s.q.equals(p) && s.p.equals(q)));
 	}
 
 	/**
