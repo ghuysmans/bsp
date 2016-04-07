@@ -43,6 +43,13 @@
 			</manifest>
 		</jar>
 	</target>
+	<target name="r" depends="build">
+		<java classpath="${build.dir}:." classname="${main-class}" fork="true">
+			<assertions>
+				<enable />
+			</assertions>
+		</java>
+	</target>
 	<target name="run" depends="build">
 		<java classpath="${build.dir}:." classname="${main-class}" fork="true">
 			<arg line="${SCENE}" />
