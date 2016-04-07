@@ -1,5 +1,8 @@
 package core;
 
+/**
+ * Abstract object able to draw a scene
+ */
 public abstract class Painter {
 	protected final Point v; //< direction vector
 	protected final Point pov; //< point of view

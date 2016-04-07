@@ -7,10 +7,16 @@ import java.util.Hashtable;
 import java.awt.Color;
 import java.io.IOException;
 
+/**
+ * Scene data, loaded from a text file
+ */
 public class Scene {
 	public final List<Segment> segments;
 	public final int maxX, maxY;
 
+	/**
+	 * Colors used by the Swing GUI
+	 */
 	protected static final Hashtable<String, Color> colors =
 		new Hashtable<String, Color>();
 
@@ -27,6 +33,7 @@ public class Scene {
 		colors.put("Rose", new Color(255, 0, 255));
 	}
 
+	//FIXME refactor into an enum
 	public static Color getColor(String s) throws FormatException {
 		Color c = colors.get(s);
 		if (c == null)
@@ -35,6 +42,10 @@ public class Scene {
 			return c;
 	}
 
+	/**
+	 * Parse a float
+	 * @throws FormatException for a user-friendly message
+	 */
 	protected static float getFloat(String s) throws FormatException {
 		try {
 			return Float.parseFloat(s);
@@ -44,6 +55,10 @@ public class Scene {
 		}
 	}
 
+	/**
+	 * Parse an float
+	 * @throws FormatException for a user-friendly message
+	 */
 	protected static int getInt(String s) throws FormatException {
 		try {
 			return Integer.parseInt(s);
@@ -53,6 +68,9 @@ public class Scene {
 		}
 	}
 
+	/**
+	 * Load a scene file
+	 */
 	public Scene(String fn) throws IOException, FormatException {
 		BufferedReader r = new BufferedReader(new FileReader(fn));
 		//header

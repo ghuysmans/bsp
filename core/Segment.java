@@ -2,13 +2,15 @@ package core;
 import java.awt.Color;
 
 /**
- * A segment is something more precise than a line,
- * not mathematically a line... (just to be clear)
+ * Simple geometry object: ax+by+c=0 between p and q
  */
 public class Segment extends Line {
 	public final Point p, q;
 	public final Color color;
 
+	/**
+	 * Compute whether r lies in the associated min-max rectangle
+	 */
 	public boolean contains(Point r) {
 		float x1 = Math.min(p.x, q.x) - Point.EPSILON;
 		float x2 = Math.max(p.x, q.x) + Point.EPSILON;
@@ -17,6 +19,11 @@ public class Segment extends Line {
 		return x1<=r.x && r.x<=x2 && y1<=r.y && r.y<=y2;
 	}
 
+	/**
+	 * Compute intersection between a Segment and a Line
+	 * Beware, it isn't implemented in Line hence not symmetric:
+	 * l.intersection(s) won't return null when the intersection lies outside s.
+	 */
 	public Point intersection(Line l) {
 		Point i = super.intersection(l);
 		if (i==null || !contains(i))
@@ -25,6 +32,9 @@ public class Segment extends Line {
 			return i;
 	}
 
+	/**
+	 * Compute intersection between two segments
+	 */
 	public Point intersection(Segment s) {
 		Point i = intersection((Line)s);
 		if (i==null || !s.contains(i))
@@ -51,6 +61,7 @@ public class Segment extends Line {
 		return p+" -- "+q+": "+super.toString();
 	}
 
+	//TODO symmetry?
 	public boolean equals(Object other) {
 		Segment s;
 		return other instanceof Segment &&
@@ -71,6 +82,9 @@ public class Segment extends Line {
 		}
 	}
 
+	/**
+	 * Parse a Segment description from a {@link Scene} file
+	 */
 	public static Segment load(String s) throws FormatException {
 		String[] data = s.split(" ");
 		Point p=new Point(Scene.getFloat(data[0]), Scene.getFloat(data[1]));

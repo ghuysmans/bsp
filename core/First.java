@@ -1,6 +1,9 @@
 package core;
 import java.util.List;
 
+/**
+ * Trivial heuristic always chosing the first segment in the list
+ */
 public class First implements Heuristic {
 	@Override public void init(List<Segment> segments) {}
 

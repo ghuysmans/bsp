@@ -1,6 +1,9 @@
 package core;
 import java.util.List;
 
+/**
+ * Generic heuristic used by {@link BSP#build}
+ */
 public interface Heuristic {
 	/**
 	 * Perform the required initialization steps on a segment list.

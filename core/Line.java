@@ -1,9 +1,9 @@
 package core;
 
+/**
+ * Simple geometry object: ax+by+c=0
+ */
 public class Line {
-	/**
-	 * Coefficients in ax+by+c=0
-	 */
 	public final float a, b, c;
 
 	/**

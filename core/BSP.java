@@ -2,6 +2,10 @@ package core;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Binary Space Partition as described in
+ * Computational Geometry (Mark de Berg et al.), chapter 12
+ */
 public class BSP {
 	public Line separator;
 	public BSP negative;
@@ -43,6 +47,7 @@ public class BSP {
 		}
 	}
 
+	//TODO del
 	protected void indent(StringBuilder sb, int amount) {
 		for (int i=0; i<amount; i++)
 			sb.append('\t');
@@ -77,6 +82,10 @@ public class BSP {
 		return sb.toString();
 	}
 
+	/**
+	 * Count nodes
+	 * @return number of nodes
+	 */
 	public int nodes() {
 		if (positive==null && negative==null)
 			return 1;
@@ -88,6 +97,10 @@ public class BSP {
 			return 1 + positive.nodes() + negative.nodes();
 	}
 
+	/**
+	 * Compute height
+	 * @return height in nodes
+	 */
 	public int height() {
 		if (positive==null && negative==null)
 			return 1;
