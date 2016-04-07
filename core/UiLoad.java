@@ -10,6 +10,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Scene selection panel
+ */
 class UiLoad extends JPanel implements ActionListener {
 	protected final TestUI ui;
 	protected BrowseBox scene;

@@ -1,6 +1,9 @@
 package core;
 import java.awt.Color;
 
+/**
+ * Main class for the text-based heuristic comparison tool
+ */
 class TestCompare {
 	public static void main(String[] args) {
 		if (args.length == 6) {

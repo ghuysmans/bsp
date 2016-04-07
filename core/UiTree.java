@@ -2,6 +2,9 @@ package core;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+/**
+ * Graphical BSP tree
+ */
 class UiTree extends JTree {
 	protected static void populate(DefaultMutableTreeNode node, BSP bsp) {
 		DefaultMutableTreeNode n;

@@ -6,6 +6,9 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 
+/**
+ * Panel providing a view from the top
+ */
 class UiOverview extends JPanel implements MouseListener, PainterCallback {
 	protected TestUI ui;
 	float zoom = 40;

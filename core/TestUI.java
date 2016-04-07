@@ -11,6 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import java.io.IOException;
 
+/**
+ * Main class for the Swing GUI
+ */
 class TestUI extends JFrame implements ActionListener {
 	public Scene scene;
 	public BSP bsp;
@@ -20,6 +23,9 @@ class TestUI extends JFrame implements ActionListener {
 	protected final JMenuItem menuManual = new JMenuItem("Manual");
 	protected final JMenuItem menuAbout = new JMenuItem("About...");
 
+	/**
+	 * Load and display a scene or display an error message
+	 */
 	public void loadScene(String filename, Heuristic heuristic) {
 		try {
 			scene = new Scene(filename);
@@ -50,6 +56,9 @@ class TestUI extends JFrame implements ActionListener {
 		setJMenuBar(menuBar);
 	}
 
+	/**
+	 * Ask something to the user (just a shortcut)
+	 */
 	public String ask(String title, String dflt) {
 		return JOptionPane.showInputDialog(this, title, dflt);
 	}

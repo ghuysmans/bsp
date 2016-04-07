@@ -3,6 +3,9 @@ import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.JPanel;
 
+/**
+ * Panel displaying the {@link Painter}'s work
+ */
 class UiCanvas extends JPanel implements PainterCallback {
 	protected final UiOverview overview;
 	protected final Painter painter;
