@@ -56,7 +56,7 @@ class TestUI extends JFrame implements ActionListener {
 		return JOptionPane.showInputDialog(this, title, dflt);
 	}
 
-	public TestUI(String initialScene, Heuristic heuristic) {
+	public TestUI(String initialScene) {
 		setTitle("BSP Viewer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 500);
@@ -65,11 +65,11 @@ class TestUI extends JFrame implements ActionListener {
 		if (initialScene == null)
 			setContentPane(new UiLoad(this));
 		else
-			loadScene(initialScene, heuristic);
+			loadScene(initialScene, new First());
 		setVisible(true);
 	}
 
 	public static void main(String[] args) {
-		new TestUI(args.length==1 ? args[0] : null, new First());
+		new TestUI(args.length==1 ? args[0] : null);
 	}
 }
