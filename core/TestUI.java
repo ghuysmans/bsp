@@ -30,11 +30,9 @@ class TestUI extends JFrame implements ActionListener {
 			revalidate();
 			repaint();
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		catch (FormatException e) {
-			e.printStackTrace();
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(),
+				"Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

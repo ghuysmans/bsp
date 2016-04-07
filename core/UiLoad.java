@@ -19,7 +19,6 @@ class UiLoad extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Heuristic h = (Heuristic)heuristic.getSelectedItem();
 		ui.loadScene(scene.filename.getText(), h);
-		//TODO handle errors
 	}
 
 	public UiLoad(TestUI ui) {
