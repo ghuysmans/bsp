@@ -105,6 +105,11 @@ public class BSP {
 	 * @param h heuristic for separator selection
 	 */
 	public static BSP build(List<Segment> set, Heuristic h) {
+		h.init(set);
+		return build_(set, h);
+	}
+
+	protected static BSP build_(List<Segment> set, Heuristic h) {
 		if (set.size() <= 1)
 			return new BSP(set, null, null, null); //leaf
 		else {
