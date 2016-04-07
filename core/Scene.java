@@ -33,7 +33,7 @@ public class Scene {
 		colors.put("Rose", new Color(255, 0, 255));
 	}
 
-	//FIXME refactor into an enum
+	//TODO maybe refactor into an enum
 	public static Color getColor(String s) throws FormatException {
 		Color c = colors.get(s);
 		if (c == null)
