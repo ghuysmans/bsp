@@ -30,8 +30,8 @@ class TestCompare {
 	 * Discard the current line
 	 */
 	protected void discardLine() throws IOException {
-		while (st.nextToken()!=StreamTokenizer.TT_EOF &&
-				st.ttype!=StreamTokenizer.TT_EOL);
+		while (st.ttype!=StreamTokenizer.TT_EOL &&
+				st.nextToken()!=StreamTokenizer.TT_EOF);
 	}
 
 	/**
