@@ -132,24 +132,26 @@ class TestCompare {
 				if (st.ttype != StreamTokenizer.TT_WORD) {
 					System.out.println("expected a command!");
 					discardLine();
-					continue;
 				}
-				String name = "do_"+st.sval.toLowerCase();
-				try {
-					//getMethod won't find protected methods
-					getClass().getDeclaredMethod(name).invoke(this);
-				}
-				catch (NoSuchMethodException e) {
-					System.out.println("unknown command: "+st.sval);
-					help(true);
-					discardLine();
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-					assert(false);
+				else {
+					String name = "do_"+st.sval.toLowerCase();
+					try {
+						//getMethod won't find protected methods
+						getClass().getDeclaredMethod(name).invoke(this);
+					}
+					catch (NoSuchMethodException e) {
+						System.out.println("unknown command: "+st.sval);
+						help(true);
+						discardLine();
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+						assert(false);
+					}
 				}
 				System.out.print(">>> ");
 			}
+			System.out.println("");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
