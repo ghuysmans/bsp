@@ -111,15 +111,28 @@ class TestCompare {
 				long t = timer.getCurrentThreadCpuTime();
 				long w = System.nanoTime();
 				BSP bsp = BSP.build(scene.segments, h);
+				System.out.printf("%-20s%s\t%s\n", "Time", "CPU", "Wall-clock");
 				report("BSP", t, w);
-				//TODO paint
+				EmptyCallback e = new EmptyCallback();
+				Point v = new Point(1, 1);
+				Painter painter = new RealPainter(v, Point.ORIGIN, 1, bsp);
+				for (int i=0; i<200; i++)
+					painter.work(e);
+				e.reset();
+				t = timer.getCurrentThreadCpuTime();
+				w = System.nanoTime();
+				painter.work(e);
+				report("Painter", t, w);
 				//TODO compare with theoretical complexity analysis
+				System.out.println("");
+				System.out.printf("%-20s%s\n", "Stats", "Count");
 				System.out.printf("%-20s%d\n", "Height", bsp.height());
 				System.out.printf("%-20s%d\n", "Nodes", bsp.nodes());
+				System.out.printf("%-20s%d\n", "Segments", e.getCount());
 				return;
 			}
 		}
-		System.out.println("Couldn't find "+heuristic);
+		System.out.println("unknown heuristic: "+heuristic);
 	}
 
 	/**
