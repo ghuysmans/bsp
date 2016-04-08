@@ -11,4 +11,8 @@ public class First implements Heuristic {
 	public int choose(List<Segment> segments) {
 		return 0;
 	}
+
+	public String toString() {
+		return getClass().getSimpleName();
+	}
 }
