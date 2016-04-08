@@ -138,6 +138,8 @@ class TestCompare {
 		timer = ManagementFactory.getThreadMXBean();
 		st = new StreamTokenizer(r);
 		st.eolIsSignificant(true);
+		if (scene != null)
+			loadScene(scene);
 	}
 
 	public static void main(String[] args) {
