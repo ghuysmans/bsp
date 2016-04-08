@@ -94,45 +94,44 @@ class TestCompare {
 		match(StreamTokenizer.TT_EOL);
 	}
 
-	protected void do_test() throws IOException {
-		if (!match('"'))
-			return;
-		String heuristic = st.sval;
-		match(StreamTokenizer.TT_EOL);
+	protected void test(Heuristic h) {
 		if (scene == null) {
 			System.out.println("Please load a scene first.");
 			return;
 		}
-		Heuristic l[] = {new First(), new Random()};
-		for (Heuristic h: l) {
-			if (h.toString().toLowerCase().equals(heuristic)) {
-				for (int i=0; i<20; i++)
-					BSP.build(scene.segments, h);
-				long t = timer.getCurrentThreadCpuTime();
-				long w = System.nanoTime();
-				BSP bsp = BSP.build(scene.segments, h);
-				System.out.printf("%-20s%s\t%s\n", "Time", "CPU", "Wall-clock");
-				report("BSP", t, w);
-				EmptyCallback e = new EmptyCallback();
-				Point v = new Point(1, 1);
-				Painter painter = new RealPainter(v, Point.ORIGIN, 1, bsp);
-				for (int i=0; i<200; i++)
-					painter.work(e);
-				e.reset();
-				t = timer.getCurrentThreadCpuTime();
-				w = System.nanoTime();
-				painter.work(e);
-				report("Painter", t, w);
-				//TODO compare with theoretical complexity analysis
-				System.out.println("");
-				System.out.printf("%-20s%s\n", "Stats", "Count");
-				System.out.printf("%-20s%d\n", "Height", bsp.height());
-				System.out.printf("%-20s%d\n", "Nodes", bsp.nodes());
-				System.out.printf("%-20s%d\n", "Segments", e.getCount());
-				return;
-			}
-		}
-		System.out.println("unknown heuristic: "+heuristic);
+		for (int i=0; i<20; i++)
+			BSP.build(scene.segments, h);
+		long t = timer.getCurrentThreadCpuTime();
+		long w = System.nanoTime();
+		BSP bsp = BSP.build(scene.segments, h);
+		System.out.printf("%-20s%s\t%s\n", "Time", "CPU", "Wall-clock");
+		report("BSP", t, w);
+		EmptyCallback e = new EmptyCallback();
+		Point v = new Point(1, 1);
+		Painter painter = new RealPainter(v, Point.ORIGIN, 1, bsp);
+		for (int i=0; i<200; i++)
+			painter.work(e);
+		e.reset();
+		t = timer.getCurrentThreadCpuTime();
+		w = System.nanoTime();
+		painter.work(e);
+		report("Painter", t, w);
+		//TODO compare with theoretical complexity analysis
+		System.out.println("");
+		System.out.printf("%-20s%s\n", "Stats", "Count");
+		System.out.printf("%-20s%d\n", "Height", bsp.height());
+		System.out.printf("%-20s%d\n", "Nodes", bsp.nodes());
+		System.out.printf("%-20s%d\n", "Segments", e.getCount());
+	}
+
+	protected void do_first() throws IOException {
+		match(StreamTokenizer.TT_EOL);
+		test(new First());
+	}
+
+	protected void do_random() throws IOException {
+		match(StreamTokenizer.TT_EOL);
+		test(new Random());
 	}
 
 	/**
