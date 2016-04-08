@@ -83,8 +83,9 @@ public class BSP {
 	 * @param h heuristic for separator selection
 	 */
 	public static BSP build(List<Segment> set, Heuristic h) {
-		h.init(set);
-		return build_(set, h);
+		List<Segment> copy = new ArrayList<Segment>(set);
+		h.init(copy);
+		return build_(copy, h);
 	}
 
 	protected static BSP build_(List<Segment> set, Heuristic h) {
@@ -123,7 +124,8 @@ public class BSP {
 					}
 				}
 			}
-			return new BSP(items, separator, build(positive,h), build(negative,h));
+			return new BSP(items, separator,
+				build_(positive,h), build_(negative,h));
 		}
 	}
 
