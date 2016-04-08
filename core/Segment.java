@@ -74,7 +74,7 @@ public class Segment extends Line {
 	public Segment(Point p, Point q, Color color) {
 		super(p.y-q.y, q.x-p.x, -(q.x-p.x)*p.y - (p.y-q.y)*p.x);
 		if (p.equals(q))
-			throw new InvalidSegmentException("p=q="+p);
+			throw new InvalidSegmentException("couldn't create [p,q] | p=q="+p);
 		else {
 			this.p = p;
 			this.q = q;
