@@ -94,6 +94,34 @@ class TestCompare {
 		match(StreamTokenizer.TT_EOL);
 	}
 
+	protected void do_test() throws IOException {
+		if (!match('"'))
+			return;
+		String heuristic = st.sval;
+		match(StreamTokenizer.TT_EOL);
+		if (scene == null) {
+			System.out.println("Please load a scene first.");
+			return;
+		}
+		Heuristic l[] = {new First(), new Random()};
+		for (Heuristic h: l) {
+			if (h.toString().toLowerCase().equals(heuristic)) {
+				for (int i=0; i<20; i++)
+					BSP.build(scene.segments, h);
+				long t = timer.getCurrentThreadCpuTime();
+				long w = System.nanoTime();
+				BSP bsp = BSP.build(scene.segments, h);
+				report("BSP", t, w);
+				//TODO paint
+				//TODO compare with theoretical complexity analysis
+				System.out.printf("%-20s%d\n", "Height", bsp.height());
+				System.out.printf("%-20s%d\n", "Nodes", bsp.nodes());
+				return;
+			}
+		}
+		System.out.println("Couldn't find "+heuristic);
+	}
+
 	/**
 	 * Command interpreter loop
 	 */
@@ -120,11 +148,6 @@ class TestCompare {
 					e.printStackTrace();
 					assert(false);
 				}
-				/*
-				long t = timer.getCurrentThreadCpuTime();
-				long w = System.nanoTime();
-				report("sleep 2K", t, w);
-				*/
 				System.out.print(">>> ");
 			}
 		}
