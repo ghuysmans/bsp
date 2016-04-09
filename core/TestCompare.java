@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  * Main class for the text-based heuristic comparison tool
  */
 class TestCompare {
-	protected static final double NANO_TO_SEC = 1E9;
+	protected static final double NANO_TO_MSEC = 1E6;
 	protected final ThreadMXBean timer;
 	protected final StreamTokenizer st;
 	protected Scene scene;
@@ -20,10 +20,9 @@ class TestCompare {
 	/**
 	 * Report a result
 	 */
-	protected void report(String descr, long ref_cpu, long ref_wallclock) {
-		double cpu = (timer.getCurrentThreadCpuTime()-ref_cpu) / NANO_TO_SEC;
-		double wallclock = (System.nanoTime()-ref_wallclock) / NANO_TO_SEC;
-		System.out.printf("%-20s%.2f\t%.2f\n", descr, cpu, wallclock);
+	protected void report(String descr, long ref_cpu) {
+		double cpu = (timer.getCurrentThreadCpuTime()-ref_cpu) / NANO_TO_MSEC;
+		System.out.printf("%-20s%9.2f\n", descr, cpu);
 	}
 
 	/**
@@ -102,10 +101,9 @@ class TestCompare {
 		for (int i=0; i<20; i++)
 			BSP.build(scene.segments, h);
 		long t = timer.getCurrentThreadCpuTime();
-		long w = System.nanoTime();
 		BSP bsp = BSP.build(scene.segments, h);
-		System.out.printf("%-20s%s\t%s\n", "Time", "CPU", "Wall-clock");
-		report("BSP", t, w);
+		System.out.printf("%-20s%s\n", "Execution time", "CPU (ms)");
+		report("BSP", t);
 		EmptyCallback e = new EmptyCallback();
 		Point v = new Point(1, 1);
 		Painter painter = new RealPainter(v, Point.ORIGIN, 1, bsp);
@@ -113,9 +111,8 @@ class TestCompare {
 			painter.work(e);
 		e.reset();
 		t = timer.getCurrentThreadCpuTime();
-		w = System.nanoTime();
 		painter.work(e);
-		report("Painter", t, w);
+		report("Painter", t);
 		//TODO compare with theoretical complexity analysis
 		System.out.println("");
 		System.out.printf("%-20s%s\n", "Stats", "Count");
