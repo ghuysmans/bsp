@@ -10,6 +10,11 @@ public class Point {
 	public final float x;
 	public final float y;
 
+	/**
+	 * Whether it's a computed intersection
+	 */
+	public final boolean intersection;
+
 	public String toString() {
 		return "("+Float.toString(x)+", "+Float.toString(y)+")";
 	}
@@ -105,7 +110,12 @@ public class Point {
 	}
 
 	public Point(float x, float y) {
+		this(x, y, false);
+	}
+
+	public Point(float x, float y, boolean inter) {
 		this.x = x;
 		this.y = y;
+		intersection = inter;
 	}
 }

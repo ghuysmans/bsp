@@ -23,7 +23,7 @@ public class Line {
 		if (Point.close(delta, 0))
 			return null;
 		else
-			return new Point((s.c*b-c*s.b)/delta, (s.a*c-a*s.c)/delta);
+			return new Point((s.c*b-c*s.b)/delta, (s.a*c-a*s.c)/delta, true);
 	}
 
 	/**
