@@ -134,6 +134,11 @@ class TestCompare {
 		test(new Random());
 	}
 
+	protected void do_free() throws IOException {
+		match(StreamTokenizer.TT_EOL);
+		test(new FreeSplit());
+	}
+
 	/**
 	 * Command interpreter loop
 	 */

@@ -32,7 +32,7 @@ class UiLoad extends JPanel implements ActionListener {
 
 		row = Box.createHorizontalBox();
 		row.add(new JLabel("Heuristic: "));
-		Heuristic h[] = {new First(), new Random()};
+		Heuristic h[] = {new First(), new Random(), new FreeSplit()};
 		heuristic = new ThinCombo<Heuristic>(h);
 		row.add(heuristic);
 		row.add(Box.createHorizontalGlue());
