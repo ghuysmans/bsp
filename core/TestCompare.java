@@ -18,11 +18,57 @@ class TestCompare {
 	protected Scene scene;
 
 	/**
-	 * Report a result
+	 * Report a single CPU time delta
+	 * @param ref_cpu reference time (start)
 	 */
-	protected void report(String descr, long ref_cpu) {
+	protected void report(long ref_cpu) {
 		double cpu = (timer.getCurrentThreadCpuTime()-ref_cpu) / NANO_TO_MSEC;
-		System.out.printf("%-20s%9.2f\n", descr, cpu);
+		System.out.printf("%9.2f", cpu);
+	}
+
+	/**
+	 * Report a single value
+	 */
+	protected void report(int value) {
+		System.out.printf("%5d", value);
+	}
+
+	/**
+	 * Display a description
+	 */
+	protected void description(String d) {
+		System.out.printf("%-18s", d);
+	}
+
+	/**
+	 * Report a CPU time measure with a description
+	 * Even though we measure a bit more than the real process,
+	 * the delta is constant so we can still compare different algorithms.
+	 * @param ref_cpu reference time (start)
+	 * @param single not in a table row
+	 */
+	protected void report(String descr, long ref_cpu, boolean single) {
+		if (single) {
+			description(descr);
+			report(ref_cpu);
+			System.out.println("");
+		}
+		else
+			report(ref_cpu);
+	}
+
+	/**
+	 * Report a value
+	 * @param single not in a table row
+	 */
+	protected void report(String descr, int value, boolean single) {
+		if (single) {
+			description(descr);
+			report(value);
+			System.out.println("");
+		}
+		else
+			report(value);
 	}
 
 	/**
@@ -93,54 +139,90 @@ class TestCompare {
 		match(StreamTokenizer.TT_EOL);
 	}
 
-	protected void test(Heuristic h) {
+	/**
+	 * Test a heuristic against the current scene
+	 * @param single not in a table row
+	 */
+	protected void test(Heuristic h, boolean single) {
 		if (scene == null) {
 			System.out.println("Please load a scene first.");
 			return;
 		}
-		for (int i=0; i<20; i++)
-			BSP.build(scene.segments, h);
 		long t = timer.getCurrentThreadCpuTime();
 		BSP bsp = BSP.build(scene.segments, h);
-		System.out.printf("%-20s%s\n", "Execution time", "CPU (ms)");
-		report("BSP", t);
+		if (single) {
+			description("Algorithm");
+			System.out.printf("%9s\n", "Time (ms)");
+		}
+		else
+			System.out.printf("%-18s", h.toString());
+		report("BSP construction", t, single);
 		EmptyCallback e = new EmptyCallback();
 		Point v = new Point(1, 1);
 		Painter painter = new RealPainter(v, Point.ORIGIN, 1, bsp);
-		for (int i=0; i<200; i++)
-			painter.work(e);
 		e.reset();
 		t = timer.getCurrentThreadCpuTime();
 		painter.work(e);
-		report("Painter", t);
-		//TODO compare with theoretical complexity analysis
+		report("Painter", t, single);
+		if (single) {
+			System.out.println("");
+			description("Stats");
+			System.out.println("Count");
+		}
+		report("Height", bsp.height(), single);
+		report("Nodes", bsp.nodes(), single);
+		report("Segments", e.getCount(), single);
 		System.out.println("");
-		System.out.printf("%-20s%s\n", "Stats", "Count");
-		System.out.printf("%-20s%d\n", "Height", bsp.height());
-		System.out.printf("%-20s%d\n", "Nodes", bsp.nodes());
-		System.out.printf("%-20s%d\n", "Segments", e.getCount());
 	}
 
 	protected void do_first() throws IOException {
 		match(StreamTokenizer.TT_EOL);
-		test(new First());
+		test(new First(), true);
 	}
 
 	protected void do_random() throws IOException {
 		match(StreamTokenizer.TT_EOL);
-		test(new Random());
+		test(new Random(), true);
 	}
 
 	protected void do_free() throws IOException {
 		match(StreamTokenizer.TT_EOL);
-		test(new FreeSplit());
+		test(new FreeSplit(), true);
+	}
+
+	protected void do_test() throws IOException {
+		if (!match(StreamTokenizer.TT_NUMBER))
+			return;
+		int ct = (int)st.nval;
+		if (!match(StreamTokenizer.TT_EOL))
+			;
+		else if (ct <= 0)
+			System.out.println("count must be a positive integer.");
+		else {
+			Heuristic first = new First();
+			Heuristic random = new Random();
+			Heuristic free = new FreeSplit();
+			description("Heuristic");
+			System.out.printf("%9s%9s%5s%5s%5s\n",
+				"BST", "Painter", "H", "N", "S");
+			while (ct-- > 0) {
+				test(first, false);
+				test(random, false);
+				test(free, false);
+			}
+		}
+	}
+
+	private void prompt() {
+		if (System.console() != null)
+			System.out.print(">>> ");
 	}
 
 	/**
 	 * Command interpreter loop
 	 */
 	public void loop() {
-		System.out.print(">>> ");
+		prompt();
 		try {
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
 				if (st.ttype != StreamTokenizer.TT_WORD) {
@@ -163,7 +245,7 @@ class TestCompare {
 						assert(false);
 					}
 				}
-				System.out.print(">>> ");
+				prompt();
 			}
 			System.out.println("");
 		}
