@@ -1,0 +1,28 @@
+@startuml
+abstract class core.Painter
+class core.BSP
+class core.EmptyCallback
+class core.First
+class core.FreeSplit
+class core.Line
+class core.Noobie
+class core.Point
+class core.Projection
+class core.Random
+class core.RealPainter
+class core.Scene
+class core.Segment
+class core.UiCanvas
+class core.UiOverview
+interface core.Heuristic
+interface core.PainterCallback
+core.EmptyCallback ..|> core.PainterCallback
+core.First ..|> core.Heuristic
+core.FreeSplit --|> core.Random
+core.Noobie --|> core.Painter
+core.Random --|> core.First
+core.RealPainter --|> core.Painter
+core.Segment --|> core.Line
+core.UiCanvas ..|> core.PainterCallback
+core.UiOverview ..|> core.PainterCallback
+@enduml
