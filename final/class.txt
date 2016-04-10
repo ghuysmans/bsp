@@ -16,13 +16,26 @@ class core.UiCanvas
 class core.UiOverview
 interface core.Heuristic
 interface core.PainterCallback
+core.BSP *-- "0..2" core.BSP
+core.BSP *-- "*" core.Segment
 core.EmptyCallback ..|> core.PainterCallback
 core.First ..|> core.Heuristic
 core.FreeSplit --|> core.Random
+core.FreeSplit --> core.Segment
 core.Noobie --|> core.Painter
+core.Noobie --> "*" core.Segment
 core.Random --|> core.First
+core.Painter --> core.Projection
+core.Painter --> core.PainterCallback
 core.RealPainter --|> core.Painter
+core.RealPainter o-- "1" core.BSP
+core.Scene *-- "*" core.Segment
 core.Segment --|> core.Line
+core.Segment o-- "2" core.Point
 core.UiCanvas ..|> core.PainterCallback
+core.UiCanvas *-- "1" core.Painter
+core.UiCanvas --> core.Projection
 core.UiOverview ..|> core.PainterCallback
+core.UiOverview o.. "1" core.Painter
+hide members
 @enduml
