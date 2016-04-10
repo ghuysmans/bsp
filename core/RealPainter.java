@@ -55,7 +55,7 @@ public class RealPainter extends Painter {
 	 * @param f field of view (strictly positive, in radians)
 	 * @param b BSP
 	 */
-	protected RealPainter(Point v, Point p, float f, BSP b) {
+	public RealPainter(Point v, Point p, float f, BSP b) {
 		super(v, p, f);
 		bsp = b;
 	}

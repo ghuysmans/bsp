@@ -7,9 +7,8 @@
 	<property name="junit.cp" value="tests/junit-4.11.jar; tests/hamcrest-core-1.3.jar" />
 	<property name="test.src" value="tests/*Test.java" />
 	<property name="test.bin" value="tests/*Test.class" />
-	<property name="root-pkg" value="core" />
-	<property name="main-class" value="${root-pkg}.TestUI" />
-	<property name="cmp-class" value="${root-pkg}.TestCompare" />
+	<property name="main-class" value="ui.TestUI" />
+	<property name="cmp-class" value="ui.TestCompare" />
 	<property name="jar.dir" value="." />
 	<property name="jar.name" value="${jar.dir}/bsp.jar" />
 	
@@ -76,6 +75,6 @@
 		<delete dir="${reports.dir}" />
 	</target>
 	<target name="javadoc">
-		<javadoc access="public" classpath="${junit.cp}" destdir="${doc.dir}" nodeprecated="true" nodeprecatedlist="true" noindex="false" nonavbar="false" notree="false" packagenames="${root-pkg}.*" source="1.6" sourcepath="${src.dir}" splitindex="true" use="true" version="false"/>
+		<javadoc access="public" classpath="${junit.cp}" destdir="${doc.dir}" nodeprecated="true" nodeprecatedlist="true" noindex="false" nonavbar="false" notree="false" packagenames=".*" source="1.6" sourcepath="${src.dir}" splitindex="true" use="true" version="false"/>
 	</target>
 </project>

@@ -1,9 +1,10 @@
-package core;
+package ui;
+import core.*;
 
 /**
  * A fake callback class only counting {@link Segments} for benchmarks
  */
-public class EmptyCallback implements PainterCallback {
+class EmptyCallback implements PainterCallback {
 	protected int segments;
 
 	@Override

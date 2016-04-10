@@ -1,0 +1,19 @@
+@startuml
+abstract class core.Painter
+class ui.EmptyCallback
+class core.Noobie
+class core.Projection
+class core.RealPainter
+class ui.Canvas
+class ui.Overview
+interface core.PainterCallback
+ui.EmptyCallback ..|> core.PainterCallback
+ui.Canvas ..|> core.PainterCallback
+ui.Canvas *-- "1" core.Painter
+ui.Canvas --> core.Projection
+ui.Overview ..|> core.PainterCallback
+ui.Overview o-- "1" core.Painter
+ui.Overview --> core.RealPainter
+ui.Overview --> core.Noobie
+hide members
+@enduml

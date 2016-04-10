@@ -1,4 +1,5 @@
-package core;
+package ui;
+import core.*;
 import java.io.StreamTokenizer;
 import java.io.Reader;
 import java.io.InputStreamReader;
@@ -11,7 +12,7 @@ import java.lang.reflect.Method;
 /**
  * Main class for the text-based heuristic comparison tool
  */
-class TestCompare {
+public class TestCompare {
 	protected static final double NANO_TO_MSEC = 1E6;
 	protected final ThreadMXBean timer;
 	protected final StreamTokenizer st;

@@ -1,4 +1,5 @@
-package core;
+package ui;
+import core.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
@@ -14,7 +15,7 @@ import java.io.IOException;
 /**
  * Main class for the Swing GUI
  */
-class TestUI extends JFrame implements ActionListener {
+public class TestUI extends JFrame implements ActionListener {
 	public Scene scene;
 	public BSP bsp;
 

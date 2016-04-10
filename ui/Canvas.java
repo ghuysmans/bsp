@@ -1,4 +1,5 @@
-package core;
+package ui;
+import core.*;
 import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.JPanel;

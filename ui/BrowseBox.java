@@ -1,4 +1,4 @@
-package core;
+package ui;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
