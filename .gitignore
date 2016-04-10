@@ -3,4 +3,8 @@ build
 scenes
 doc/java
 reports
-Rplots.pdf
+docs
+*.aux
+*.log
+*.out
+*.pdf
