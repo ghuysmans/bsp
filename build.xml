@@ -44,21 +44,6 @@
 			</manifest>
 		</jar>
 	</target>
-	<target name="c" depends="build">
-		<java classpath="${build.dir}:." classname="${cmp-class}" fork="true">
-			<assertions>
-				<enable />
-			</assertions>
-		</java>
-	</target>
-	<target name="compare" depends="build">
-		<java classpath="${build.dir}:." classname="${cmp-class}" fork="true">
-			<arg line="${SCENE}" />
-			<assertions>
-				<enable />
-			</assertions>
-		</java>
-	</target>
 	<target name="r" depends="build">
 		<java classpath="${build.dir}:." classname="${main-class}" fork="true">
 			<assertions>
