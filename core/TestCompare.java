@@ -140,14 +140,25 @@ class TestCompare {
 	}
 
 	/**
+	 * Ensure that a scene has been loaded
+	 * @return true if loaded
+	 */
+	protected boolean checkScene() {
+		if (scene == null) {
+			System.out.println("Please load a scene first.");
+			return false;
+		}
+		else
+			return true;
+	}
+
+	/**
 	 * Test a heuristic against the current scene
 	 * @param single not in a table row
 	 */
 	protected void test(Heuristic h, boolean single) {
-		if (scene == null) {
-			System.out.println("Please load a scene first.");
+		if (single && !checkScene())
 			return;
-		}
 		long t = timer.getCurrentThreadCpuTime();
 		BSP bsp = BSP.build(scene.segments, h);
 		if (single) {
@@ -198,6 +209,8 @@ class TestCompare {
 			;
 		else if (ct <= 0)
 			System.out.println("count must be a positive integer.");
+		else if (!checkScene())
+			;
 		else {
 			Heuristic first = new First();
 			Heuristic random = new Random();
