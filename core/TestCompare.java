@@ -217,7 +217,7 @@ class TestCompare {
 			Heuristic free = new FreeSplit();
 			description("Heuristic");
 			System.out.printf("%9s%9s%7s%7s%7s\n",
-				"BST", "Painter", "H", "N", "S");
+				"BSP", "Painter", "H", "N", "S");
 			while (ct-- > 0) {
 				test(first, false);
 				test(random, false);
