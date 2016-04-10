@@ -1,19 +1,27 @@
 @startuml
 abstract class core.Painter
 class ui.EmptyCallback
-class core.Noobie
 class core.Projection
-class core.RealPainter
+class core.Scene
 class ui.Canvas
 class ui.Overview
+class ui.TestCompare
+class ui.TestUI
+class ui.Tree
 interface core.PainterCallback
 ui.EmptyCallback ..|> core.PainterCallback
 ui.Canvas ..|> core.PainterCallback
-ui.Canvas *-- "1" core.Painter
+ui.Canvas *-- core.Painter
 ui.Canvas --> core.Projection
 ui.Overview ..|> core.PainterCallback
-ui.Overview o-- "1" core.Painter
-ui.Overview --> core.RealPainter
-ui.Overview --> core.Noobie
+ui.Overview o-- core.Painter
+ui.Overview --> ui.Canvas
+ui.TestCompare *-- core.Scene
+ui.TestCompare *-- core.BSP
+ui.TestCompare --> ui.EmptyCallback
+ui.TestUI *-- core.BSP
+ui.TestUI *-- core.Scene
+ui.TestUI *-- ui.Overview
+ui.TestUI *-- ui.Tree
 hide members
 @enduml
