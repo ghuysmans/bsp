@@ -30,7 +30,7 @@ class TestCompare {
 	 * Report a single value
 	 */
 	protected void report(int value) {
-		System.out.printf("%5d", value);
+		System.out.printf("%7d", value);
 	}
 
 	/**
@@ -203,7 +203,7 @@ class TestCompare {
 			Heuristic random = new Random();
 			Heuristic free = new FreeSplit();
 			description("Heuristic");
-			System.out.printf("%9s%9s%5s%5s%5s\n",
+			System.out.printf("%9s%9s%7s%7s%7s\n",
 				"BST", "Painter", "H", "N", "S");
 			while (ct-- > 0) {
 				test(first, false);
