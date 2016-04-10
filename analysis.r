@@ -1,4 +1,4 @@
-t=read.csv("large2.csv")
+t=read.csv(commandArgs(trailingOnly=T)[1])
 summary(t)
 
 library(ggplot2)
