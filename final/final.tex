@@ -1,13 +1,13 @@
-\documentclass{article}
-\usepackage[a4paper, top=3cm]{geometry}
-\usepackage{titling}
-\setlength{\droptitle}{-60pt}
+\documentclass[12pt,twocolumn]{article}
+\usepackage{fullpage}
+\usepackage[a4paper, margin=1.5cm, bottom=3cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage[english,frenchb]{babel}
 \usepackage{csquotes}
+\usepackage{amsthm}
 \newtheorem{prop}{Propriété}
 \newtheorem{dfn}{Définition}
 \usepackage{amssymb}
@@ -20,6 +20,8 @@
 \newcommand{\es}{\emptyset}
 \newcommand{\inc}{\subseteq}
 \newcommand{\sm}{\setminus}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
 \title{Projet de Structure de données II - Rapport final}
 \author{Guillaume \textsc{Huysmans}}
 \date{15 avril 2016}
@@ -41,9 +43,9 @@ des arbres binaires. Chaque noeud interne représente une région $\reg$
 du plan et est divisé en trois parties selon
 une droite $D\equiv f(P)=aP_x+bP_y+c=0$ :
 \begin{itemize}
-	\item $d^-=\left\{f(P)<0|P\in\reg\right\}$ (sous-arbre gauche)
+	\item $d^-=\left\{f(P)<0 \; | \; P\in\reg\right\}$
 	\item une liste de segments $s \inc D$
-	\item $d^+=\left\{f(P)>0|P\in\reg\right\}$ (sous-arbre droit)
+	\item $d^+=\left\{f(P)>0 \; | \; P\in\reg\right\}$
 \end{itemize}
 
 À une feuille de cet arbre, aucune droite ne sera associée et elle ne
@@ -52,24 +54,167 @@ contiendra qu'une liste de segments.
 
 \section{Implémentation}
 %fonctionnement des différentes structures et algorithmes utilisés
-Les calculs de projections ont été expérimentés dans
+\subsection{Géométrie}
+Les méthodes de projection et de calcul d'intersection ont été expérimentées dans
 GeoGebra\footnote{\url{https://www.geogebra.org/?lang=fr}}
-avant d'être implémentés en Java.
+avant d'être implémentés en Java. Cela permettait de les tester de manière
+interactive et de raisonner plus visuellement.
+
+\begin{dfn}[Segment]\label{dfn:seg}
+Soient $A,B\in\esR^2$.
+Soient $x_m=\min(A_x,B_x), \; x_M=\max(A_x,B_x)$,
+respectivement $y_m$ et $y_M$.
+\begin{align*}
+	[A,B]=\{(x,y)\in\esR^2 \; | \;
+	& x_m\leq x\leq x_M \; \land \\
+	& y_m\leq y\leq y_M \}
+\end{align*}
+\end{dfn}
+
+\begin{prop}[Intersection segment--droite]\label{prop:inter}
+Soient $A,B,A',B'\in\esR^2$.
+\[
+	[A,B] \cap A'B' = AB \cap A'B' \cap [A,B]
+\]
+\begin{proof}
+\begin{align*}
+	& AB \cap A'B' \cap [A,B] && \text{thèse} \\
+	= & AB \cap [A,B] \cap A'B' && \text{commutativité} \\
+	= & [A,B] \cap A'B' && [A,B] \inc AB
+\end{align*}
+\end{proof}
+\end{prop}
+
+\begin{figure}[h]
+\center
+\input{seginter.tex}
+\caption{Intersection de segments}
+\end{figure}
+
+Dans \texttt{core.Segment}, la méthode \texttt{contains}
+implémente directement la définition \ref{dfn:seg}
+et \texttt{contains} utilise la propriété \ref{prop:inter}.
+L'intersection de droites se base sur la méthode de Cramer pour résoudre
+un système de deux équations à deux inconnues.
+
+La rotation de $P$ autour de $A$ d'un angle $\alpha$ est ainsi implémentée
+dans \texttt{core.Point} :
+\[
+	(P-A) \times |P-A| \left(\begin{array}{cc}
+	\cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha
+	\end{array}\right)
+	+ A
+\]
+On passe dans un repère centré sur $A$, on fait tourner $P$ autour du nouvel
+origine puis on revient dans le repère d'où on est parti.
+
+La hiérarchie des objets ne distingue pas un~point $P$ d'un vecteur $OP$.
+
+\begin{prop}[Angle]
+Le plus petit angle $\alpha$ entre les vecteurs $u$ et $v$ peut se calculer
+à partir de leur produit scalaire :
+\begin{align*}
+	u.v = & |u|\times|v|\times\cos\alpha \\
+	= & u_xv_x + u_yv_y
+\end{align*}
+De là, on isole aisément $\alpha$ :
+\[
+	\alpha = \cos^{-1}\left(\frac{u_xv_x + u_yv_y}{|u|\times|v|}\right)
+\]
+\end{prop}
+
+La projection c'est chiant mais faisable... %TODO
+
+
+\subsection{Architecture logicielle}
+À la figure \ref{fig:core} sont représentées les relations importantes
+entre les objets du noyau du logiciel. Un peintre est seulement chargé
+de parcourir les segments dans le <<~bon ordre~>>. Il est utilisé pour
+représenter la projection des segments mais également pour présenter la vue de
+haut (où il y a moins de contraintes). Les heuristiques implémentent toutes une
+même interface qui leur permet de donner l'indice du prochain segment à utiliser
+et lors de l'initialisation de modifier la liste lue à partir de la scène.
+Les \textit{free splits} n'étant qu'une amélioration de \texttt{Random},
+elle en hérite tout naturellement. Pour qu'elle fonctionne, le plus simple était
+d'ajouter à \texttt{Point} un indicateur disant qu'il s'agit d'une intersection.
+Lorsque les deux extrémités d'un segment en sont, on peut l'utiliser sans
+risquer que la droite qui le supporte n'en coupe un autre
+\footnote{Nous faisons l'hypothèse comme dans le livre de référence
+que les segments ne se coupent pas}.
+La projection est faite dans la classe abstraite du peintre puisque
+cette opération nécessite des informations liées à la caméra
+que nous ne calculerons qu'une fois.
+
+\begin{figure}[h]
+\center
+\includegraphics[width=\columnwidth]{class.png}
+\caption{Architecture du noyau}\label{fig:core}
+\end{figure}
+
+À la figure \ref{fig:ui} nous retrouvons le couplage entre les interfaces
+utilisateur et le noyau du logiciel. \texttt{PainterCallback} permet au peintre
+de nous rendre la main puisqu'on ne peut pas en Java 8 passer de fonctions en
+paramètres.
+
+\begin{figure}[h]
+\center
+\includegraphics[width=\columnwidth]{class-use.png}
+\caption{Architecture de l'interface utilisateur}\label{fig:ui}
+\end{figure}
 
 
 \section{Mode d'emploi}
 \subsection{TestUI}
+Un nom de fichier peut être passé en paramètre afin de ne pas devoir le
+sélectionner manuellement. Vous pouvez sélectionner une heuristique
+(par défaut \texttt{First}) avant de lancer la construction de l'arbre BSP.
+%FIXME pré-remplir le champ et ne pas utiliser First d'office !
+
+Une fois l'arbre créé, deux représentations de la~scène sont présentées :
+\begin{itemize}
+\item à gauche, un arbre montrant les différents noeuds du BSP ainsi
+	que le nombre de segments qu'ils contiennent;
+\item à droite, une vue de haut.
+	%Cette dernière est la première fois générée
+	%n parcourant la liste des segments. Une fois que la caméra sera placée,
+	%n <<~vrai peintre~>> travaille à partir du BSP.
+\end{itemize}
+
+Pour (dé)placer la caméra, il faut cliquer une première fois à la position sur
+laquelle la placer et une seconde fois sur un point qu'elle fixe.
+
+Pour déplacer la vue de haut, il faut modifier le code source (désolay). %FIXME
+
+
 \subsection{TestCompare}
-Passer par \texttt{rlwrap -c}.
+Comme pour l'interface fenêtrée,
+un nom de fichier peut être passé en paramètre afin d'éviter la saisie
+de la commande \texttt{load "scène.txt"} (notez la présence des guillemets).
+
+Il est préférable d'utiliser \texttt{rlwrap -c}
+\footnote{\texttt{rlwrap} est disponible dans les dépôts Debian.}
+afin de profiter d'une autocomplétion des noms de fichiers et
+des touches directionnelles autrement indisponibles puisque
+l'entrée est seulement traitée ligne par ligne.
+
+Les autres commandes disponibles sont :
+\begin{itemize}
+	\item \texttt{first} pour construire un BSP avec l'heuristique déterministe;
+	\item \texttt{random} pour créer au hasard un arbre;
+	\item \texttt{free} pour profiter des \textit{free splits};
+	\item \texttt{test \underline{n}} pour créer $n$ BSP en utilisant chaque
+		heuristique disponible;
+	\item \texttt{exit}|\texttt{quit} pour quitter le programme.
+\end{itemize}
 
 
 \section{Résultats}
 %donner et commenter les résultats de vos comparaison des heuristiques
+\includegraphics[width=\columnwidth]{../Rplots.pdf}
 
 
 \section{Complexité de l'algorithme du peintre}
-TODO
-
+%TODO
 Il est prouvé dans l'ouvrage de référence (p. 258) que
 le nombre de fragments obtenus après construction d'un BSP
 est en $\bigO(n+2n\ln n)=\bigO(n\ln n)$.
@@ -77,11 +222,18 @@ est en $\bigO(n+2n\ln n)=\bigO(n\ln n)$.
 
 \section{Conclusion}
 %apports, difficultés, comparaison théorie/pratique
-découverte d'un algorithme et d'une structure de données élégants
-problèmes de précision lors des calculs
-généralisation 3D intéressante mais connaissances math suffisantes ?
-	Quake et ses dérivés nomment leurs cartes ainsi et ce n'est pas un hasard.
-StreamTokenizer inconnu jusqu'ici
+Ce projet était pour moi l'occasion de découvrir une solution élégante à un
+problème qui me semblait difficilement soluble en 3D avec beaucoup d'objets.
+Il serait intéressant de généraliser les choses dans l'espace mais je doute
+de disposer des connaissances nécessaires en géométrie pour y parvenir.
+L'abréviation me disait quelque chose, c'est en fait aussi l'extension de
+fichier des cartes dans Quake et ses dérivés puisque le moteur original utilise
+(entre autres) cette structure de donnée afin de fonctionner efficacement
+même sur des machines peu puissantes.
+
+\texttt{StreamTokenizer} m'était jusque-là inconnu et il s'est avéré bien
+pratique puisqu'il n'était ainsi plus nécessaire de découper en lexèmes
+les commandes entrées par l'utilisateur.
 
 
 \end{document}
