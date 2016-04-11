@@ -256,7 +256,24 @@ Segments            15609
 
 \section{Résultats}
 %donner et commenter les résultats de vos comparaison des heuristiques
-\includegraphics[width=\columnwidth]{../Rplots.pdf}
+Sur la figure \ref{fig:eL}, on observe que l'ordre des segments dans la
+scène est bien meilleur que les autres examinés par \texttt{Random}. Cela vient
+du fait que la scène est construite en commençant par l'extérieur...
+La figure \ref{fig:eL-n} montre seulement la différence entre
+les heuristiques non déterministes.
+\begin{figure}[p]
+\center
+\includegraphics[width=\columnwidth]{../Rplots.pdf}%FIXME
+\caption{\texttt{ellipsesLarge.txt}}\label{fig:eL}
+\end{figure}
+\begin{figure}[p]
+\center
+\includegraphics[width=\columnwidth]{../Rplots.pdf}%FIXME
+\caption{\texttt{ellipsesLarge.txt} sans \texttt{First}}\label{fig:eL-n}
+\end{figure}
+
+Le fichier \texttt{rectanglesHuge.txt} n'a pas pu été traité tel-quel puisqu'il
+contenait des <<~segments~>> $[PQ]$ tels que $P=Q=(\pm250,0)$.
 
 
 \section{Complexité de l'algorithme du peintre}
