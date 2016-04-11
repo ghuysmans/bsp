@@ -22,11 +22,11 @@
 \newcommand{\sm}{\setminus}
 \usepackage{pgf,tikz}
 \usetikzlibrary{arrows}
-\title{Projet de Structure de données II - Rapport final}
+\title{Projet de Structures de données II - Rapport final}
 \author{Guillaume \textsc{Huysmans}}
 \date{15 avril 2016}
 \hypersetup{
-	pdftitle={Projet de Structure de données II - Rapport final},
+	pdftitle={Projet de Structures de données II - Rapport final},
 	pdfauthor={Guillaume \textsc{Huysmans}},
 	pdfsubject={BSP, plan, binary space partition, Java, implementation},
 	pdfkeywords={sdd2}}
@@ -105,8 +105,8 @@ dans \texttt{core.Point} :
 	\end{array}\right)
 	+ A
 \]
-On passe dans un repère centré sur $A$, on fait tourner $P$ autour du nouvel
-origine puis on revient dans le repère d'où on est parti.
+On passe dans un repère centré sur $A$, on fait tourner $P$ autour de
+la nouvelle origine puis on revient dans le repère d'où l'on est parti.
 
 La hiérarchie des objets ne distingue pas un~point $P$ d'un vecteur $OP$.
 
@@ -153,7 +153,8 @@ haut (où il y a moins de contraintes). Les heuristiques implémentent toutes un
 même interface qui leur permet de donner l'indice du prochain segment à utiliser
 et lors de l'initialisation de modifier la liste lue à partir de la scène.
 Les \textit{free splits} n'étant qu'une amélioration de \texttt{Random},
-elle en hérite tout naturellement. Pour qu'elle fonctionne, le plus simple était
+elle en hérite tout naturellement. Pour qu'elle fonctionne, le plus simple
+pour moi était
 d'ajouter à \texttt{Point} un indicateur disant qu'il s'agit d'une intersection.
 Lorsque les deux extrémités d'un segment en sont, on peut l'utiliser sans
 risquer que la droite qui le supporte n'en coupe un autre
@@ -203,12 +204,12 @@ laquelle la placer et une seconde fois sur un point qu'elle fixe.
 
 Pour déplacer la vue de haut, il faut modifier le code source (désolay). %FIXME
 
-Une copie d'écran de TestUI est présentée à la figure \ref{fig:ui}.
+Une copie d'écran de TestUI est présentée à la figure \ref{fig:screen}.
 
 \begin{figure}[h]
 \center
 \includegraphics[width=\columnwidth]{ui.png} %FIXME
-\caption{Copie d'écran de TestUI}\label{fig:ui}
+\caption{Copie d'écran de TestUI}\label{fig:screen}
 \end{figure}
 
 
@@ -272,13 +273,13 @@ les heuristiques non déterministes.
 \caption{\texttt{ellipsesLarge.txt} sans \texttt{First}}\label{fig:eL-n}
 \end{figure}
 
-Le fichier \texttt{rectanglesHuge.txt} n'a pas pu été traité tel-quel puisqu'il
+Le fichier \texttt{rectanglesHuge.txt} n'a pas pu été traité tel quel puisqu'il
 contenait des <<~segments~>> $[PQ]$ tels que $P=Q=(\pm250,0)$.
 
 
 \section{Complexité de l'algorithme du peintre}
 %TODO
-Il est prouvé dans l'ouvrage de référence (p. 258) que
+Il est prouvé dans l'ouvrage de référence (p.~258) que
 le nombre de fragments obtenus après construction d'un BSP
 est en $\bigO(n+2n\ln n)=\bigO(n\ln n)$.
 
