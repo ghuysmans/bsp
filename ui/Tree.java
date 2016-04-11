@@ -6,7 +6,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Graphical BSP tree
  */
-class UiTree extends JTree {
+class Tree extends JTree {
 	protected static void populate(DefaultMutableTreeNode node, BSP bsp) {
 		DefaultMutableTreeNode n;
 		if (bsp.negative != null) {
@@ -29,7 +29,7 @@ class UiTree extends JTree {
 		return root;
 	}
 
-	public UiTree(String caption, BSP bsp) {
+	public Tree(String caption, BSP bsp) {
 		super(createTree(caption, bsp));
 	}
 }

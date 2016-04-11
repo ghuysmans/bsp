@@ -32,8 +32,8 @@ public class TestUI extends JFrame implements ActionListener {
 			scene = new Scene(filename);
 			bsp = BSP.build(scene.segments, heuristic);
 			setContentPane(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				new JScrollPane(new UiTree(filename, bsp)),
-				new UiOverview(this)));
+				new JScrollPane(new Tree(filename, bsp)),
+				new Overview(this)));
 			revalidate();
 			repaint();
 		}
@@ -71,7 +71,7 @@ public class TestUI extends JFrame implements ActionListener {
 		setLocationByPlatform(true);
 		initMenus();
 		if (initialScene == null)
-			setContentPane(new UiLoad(this));
+			setContentPane(new Load(this));
 		else
 			loadScene(initialScene, new First());
 		setVisible(true);

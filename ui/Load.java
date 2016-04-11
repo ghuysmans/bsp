@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 /**
  * Scene selection panel
  */
-class UiLoad extends JPanel implements ActionListener {
+class Load extends JPanel implements ActionListener {
 	protected final TestUI ui;
 	protected BrowseBox scene;
 	protected JButton load;
@@ -25,7 +25,7 @@ class UiLoad extends JPanel implements ActionListener {
 		ui.loadScene(scene.filename.getText(), h);
 	}
 
-	public UiLoad(TestUI ui) {
+	public Load(TestUI ui) {
 		Box row;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(new EmptyBorder(10, 10, 10, 10));

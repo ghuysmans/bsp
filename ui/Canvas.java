@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 /**
  * Panel displaying the {@link Painter}'s work
  */
-class UiCanvas extends JPanel implements PainterCallback {
-	protected final UiOverview overview;
+class Canvas extends JPanel implements PainterCallback {
+	protected final Overview overview;
 	protected final Painter painter;
 	protected final boolean decomposed;
 	protected Graphics g;
@@ -46,7 +46,7 @@ class UiCanvas extends JPanel implements PainterCallback {
 		painter.work(this);
 	}
 
-	public UiCanvas(UiOverview overview, Painter painter, boolean decomposed) {
+	public Canvas(Overview overview, Painter painter, boolean decomposed) {
 		this.overview = overview;
 		this.painter = painter;
 		this.decomposed = decomposed;

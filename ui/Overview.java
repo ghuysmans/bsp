@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 /**
  * Panel providing a view from the top
  */
-class UiOverview extends JPanel implements MouseListener, PainterCallback {
+class Overview extends JPanel implements MouseListener, PainterCallback {
 	protected TestUI ui;
 	float zoom = 40;
 	Point dir; //vector
@@ -109,7 +109,7 @@ class UiOverview extends JPanel implements MouseListener, PainterCallback {
 				repaint();
 				//paint what we can see
 				painter = new RealPainter(dir, pov, angle, ui.bsp);
-				JPanel c = new UiCanvas(this, painter, true);
+				JPanel c = new Canvas(this, painter, true);
 				JFrame f = new JFrame();
 				f.setTitle("Painter's View");
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -129,7 +129,7 @@ class UiOverview extends JPanel implements MouseListener, PainterCallback {
 		}
 	}
 
-	public UiOverview(TestUI ui) {
+	public Overview(TestUI ui) {
 		this.ui = ui;
 		painter = new Noobie(ui.scene.segments);
 		System.out.println(ui.bsp.nodes()+" nodes, height="+ui.bsp.height());
