@@ -123,7 +123,25 @@ De là, on isole aisément $\alpha$ :
 \]
 \end{prop}
 
-La projection c'est chiant mais faisable... %TODO
+La projection d'un point se fait en deux étapes : d'abord, on calcule l'angle
+entre le vecteur le plus à gauche dans notre champ de vision ($u$) et celui
+de la caméra au point visé ($v$). Ensuite, on refait le même calcul avec
+le centre de notre champ de vision et $v$. En effet, un seul des deux résultats
+ne suffit pas puisqu'on ne peut pas savoir de quel côté (positif ou négatif)
+on se situe avec un simple $cos^{-1}$. On sait ainsi si le point est visible
+(le rapport entre l'angle avec $u$ et le champ de vision est alors retourné)
+ou trop loin d'un côté ou de l'autre ($\pm\infty$ est retourné).
+
+\begin{figure}[h]
+\center
+\input{projection3.tex}
+\caption{Projection d'un point}
+\end{figure}
+
+Un segment ne sera pas visible s'il est entièrement derrière la caméra,
+c'est-à-dire du côté opposé au point qu'elle fixe. Sinon, il suffit de projeter
+ses extrémités et de vérifier qu'elles ne sont pas au même endroit, ce qui
+arrivera si la caméra est alignée avec un segment <<~sans épaisseur~>>.
 
 
 \subsection{Architecture logicielle}

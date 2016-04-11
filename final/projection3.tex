@@ -1,0 +1,26 @@
+\definecolor{ffqqqq}{rgb}{1,0,0}
+\definecolor{qqcctt}{rgb}{0,0.8,0.2}
+\definecolor{qqzzzz}{rgb}{0,0.6,0.6}
+\definecolor{qqwuqq}{rgb}{0,0.39,0}
+\definecolor{qqqqff}{rgb}{0,0,1}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(1.25,1.13) rectangle (6.71,6.64);
+\draw [shift={(1.52,3.08)},color=qqwuqq,fill=qqwuqq,fill opacity=0.1] (0,0) -- (-17.89:0.52) arc (-17.89:42.11:0.52) -- cycle;
+\draw [->] (1.52,3.08) -- (6.46,4.14);
+\draw [color=qqzzzz,domain=1.25:6.71] plot(\x,{(-24.65--4.94*\x)/-1.06});
+\draw [->,color=qqcctt] (1.52,3.08) -- (4.7,1.37);
+\draw [->,color=ffqqqq] (1.52,3.08) -- (5.27,6.47);
+\draw [->,color=ffqqqq] (1.52,3.08) -- (6.33,1.53);
+\begin{scriptsize}
+\fill [color=qqqqff] (1.52,3.08) circle (1.5pt);
+\draw[color=qqqqff] (1.58,2.94) node {$pov$};
+\fill [color=qqqqff] (6.46,4.14) circle (1.5pt);
+\draw[color=black] (3.92,3.86) node {$d$};
+\fill [color=qqqqff] (4.7,1.37) circle (1.5pt);
+\draw[color=qqqqff] (4.83,1.59) node {$p$};
+\draw[color=qqwuqq] (1.72,2.72) node {$60\textrm{\degre}$};
+\draw[color=qqcctt] (3.21,2.41) node {$u$};
+\draw[color=ffqqqq] (3.38,4.95) node {$t$};
+\draw[color=ffqqqq] (4,2.49) node {$b$};
+\end{scriptsize}
+\end{tikzpicture}
