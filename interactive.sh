@@ -1,3 +1,3 @@
 #!/bin/sh
 ant build
-rlwrap -c java -cp build core.TestCompare $1
+rlwrap -c java -cp build ui.TestCompare $1
