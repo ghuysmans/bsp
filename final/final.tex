@@ -233,6 +233,26 @@ Les autres commandes disponibles sont :
 	\item \texttt{exit}|\texttt{quit} pour quitter le programme.
 \end{itemize}
 
+L'utilisation type de TestCompare est présentée à la figure \ref{fig:cmp}.
+
+\begin{figure}[h]
+\begin{verbatim}
+$ rlwrap -c \
+  java -cp build ui.TestCompare \
+  scenes/rectangles/rectanglesHuge.txt
+>>> free
+Algorithm         Time (ms)
+BSP construction      12.74
+Painter                0.38
+
+Stats             Count
+Height                 13
+Nodes                 361
+Segments            15609
+\end{verbatim}
+\caption{Utilisation type de TestCompare}\label{fig:cmp}
+\end{figure}
+
 
 \section{Résultats}
 %donner et commenter les résultats de vos comparaison des heuristiques
