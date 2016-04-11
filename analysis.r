@@ -12,4 +12,5 @@ summary(t)
 
 library(ggplot2)
 ggplot(t, aes(x=S, fill=Heuristic)) + geom_histogram() +
-	labs(x="Total Segments", y="Count") #+ labs(title=filename)
+	labs(x="Total Segments", y="Count") +
+	theme(legend.position="top") #+ labs(title=filename)
