@@ -179,7 +179,7 @@ public class TestCompare {
 		if (single) {
 			System.out.println("");
 			description("Stats");
-			System.out.println("Count");
+			System.out.printf("%7s\n", "Count");
 		}
 		report("Height", bsp.height(), single);
 		report("Nodes", bsp.nodes(), single);
