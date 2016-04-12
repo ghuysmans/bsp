@@ -113,7 +113,7 @@ public class Point {
 		this(x, y, false);
 	}
 
-	public Point(float x, float y, boolean inter) {
+	Point(float x, float y, boolean inter) {
 		this.x = x;
 		this.y = y;
 		intersection = inter;
