@@ -70,10 +70,7 @@ public class TestUI extends JFrame implements ActionListener {
 		setSize(600, 500);
 		setLocationByPlatform(true);
 		initMenus();
-		if (initialScene == null)
-			setContentPane(new Load(this));
-		else
-			loadScene(initialScene, new First());
+		setContentPane(new Load(this, initialScene));
 		setVisible(true);
 	}
 

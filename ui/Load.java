@@ -25,7 +25,7 @@ class Load extends JPanel implements ActionListener {
 		ui.loadScene(scene.filename.getText(), h);
 	}
 
-	public Load(TestUI ui) {
+	public Load(TestUI ui, String f) {
 		Box row;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -40,6 +40,8 @@ class Load extends JPanel implements ActionListener {
 		add(row);
 
 		scene = new BrowseBox("Scene: ");
+		if (f != null)
+			scene.filename.setText(f);
 		add(scene);
 
 		row = Box.createHorizontalBox();
