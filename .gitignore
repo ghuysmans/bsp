@@ -1,6 +1,6 @@
 *.swp
 build
-scenes
+scenes/*.txt
 doc/java
 reports
 docs
