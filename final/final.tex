@@ -22,6 +22,7 @@
 \newcommand{\sm}{\setminus}
 \usepackage{pgf,tikz}
 \usetikzlibrary{arrows}
+\usepackage[french,onelanguage]{algorithm2e}
 \title{Projet de Structures de données II - Rapport final}
 \author{Guillaume \textsc{Huysmans}}
 \date{15 avril 2016}
@@ -277,11 +278,72 @@ Le fichier \texttt{rectanglesHuge.txt} n'a pas pu été traité tel quel puisqu'
 contenait des <<~segments~>> $[PQ]$ tels que $P=Q=(\pm250,0)$.
 
 
-\section{Complexité de l'algorithme du peintre}
-%TODO
-Il est prouvé dans l'ouvrage de référence (p.~258) que
-le nombre de fragments obtenus après construction d'un BSP
-est en $\bigO(n+2n\ln n)=\bigO(n\ln n)$.
+\section{Analyse de complexité}
+\begin{algorithm}
+\caption{peindre, décrit dans \cite[p.~255]{cg}}
+\SetAlgoLined\DontPrintSemicolon
+\KwData{$t, \; pov$}
+\uIf{$t=\es$} {
+	ne rien faire
+}
+\uElseIf{$(t^+=\es) \land (t^-=\es)$} {
+	afficher chaque segment de $t_s$
+}
+\Else {
+	$p$ = position de $pov$ par rapport à $t_D$ \;
+	\uIf{$p>0$} {
+		peindre $t^-$ depuis $pov$ \;
+		afficher chaque segment de $t_s$ \;
+		peindre $t^+$ depuis $pov$ \;
+	}
+	\uElseIf{$p<0$} {
+		peindre $t^+$ depuis $pov$ \;
+		afficher chaque segment de $t_s$ \;
+		peindre $t^-$ depuis $pov$ \;
+	}
+	\Else {
+		peindre $t^+$ depuis $pov$ \;
+		peindre $t^-$ depuis $pov$ \;
+	}
+}
+~
+\end{algorithm}
+
+Par feuille, il y a :
+\begin{itemize}
+	\item deux comparaisons en $\bigO(1)$
+	\item l'affichage des segments qu'elle contient
+\end{itemize}
+
+Pour chaque noeud interne $t$, en ignorant les appels récursifs, on observe :
+\begin{itemize}
+	\item trois comparaisons en $\bigO(1)$
+	\item un calcul en $\bigO(1)$
+	\item dans le pire des cas :
+		\begin{itemize}
+			\item deux autres comparaisons en $\bigO(1)$
+			\item l'affichage des segments dans $t_s$
+		\end{itemize}
+\end{itemize}
+
+On observe que tous les noeuds seront visités une seule fois et que dans le pire
+des cas, tous les segments seront peints. Il s'agit en fait d'un parcours
+d'arbre, l'ordre n'a pas d'importance pour évaluer sa complexité. L'algorithme
+s'exécute en $\bigO(n)$ avec $n$ le nombre de noeuds dans l'arbre
+lorsque l'on ignore l'affichage des segments.
+
+Il est prouvé dans \cite[p.~258]{cg} que
+le nombre de fragments de segments obtenus après construction d'un BSP
+est en $\bigO(s+2s\ln s)=\bigO(s\ln s)$ avec $s$, le nombre
+de segments contenus dans la scène.
+
+Globalement, dans le pire des cas, tous les noeuds sont parcourus et
+tous les segments seront peints. Les complexités s'additionnent pour donner
+$\bigO(n+s\ln s)$. Or lorsque $s\geq1$, on a toujours $n\leq s+2$ :
+on travaille avec des autopartitions
+tout en faisant attention aux cas extrêmes où il n'y a que deux segments.
+On trouve ainsi $\bigO(s\ln s)$.
+%FIXME imaginer pires cas (dessiner), tableau comme en cours ?
 
 
 \section{Conclusion}
