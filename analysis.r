@@ -8,9 +8,8 @@ filename=args$args[1]
 t=read.csv(filename)
 if (!is.null(args$options$exclude))
 	t=t[t$Heuristic!=args$options$exclude,]
-summary(t)
 
 library(ggplot2)
-ggplot(t, aes(x=S, fill=Heuristic)) + geom_histogram() +
+ggplot(t, aes(x=S, color=Heuristic)) + geom_freqpoly() +
 	labs(x="Total Segments", y="Count") +
-	theme(legend.position="top") #+ labs(title=filename)
+	theme_bw() + theme(legend.position="top")
