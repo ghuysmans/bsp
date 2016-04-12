@@ -31,6 +31,7 @@
 	pdfauthor={Guillaume \textsc{Huysmans}},
 	pdfsubject={BSP, plan, binary space partition, Java, implementation},
 	pdfkeywords={sdd2}}
+\bibliographystyle{plain}
 \begin{document}
 \maketitle
 %\tableofcontents
@@ -153,13 +154,14 @@ représenter la projection des segments mais également pour présenter la vue d
 haut (où il y a moins de contraintes). Les heuristiques implémentent toutes une
 même interface qui leur permet de donner l'indice du prochain segment à utiliser
 et lors de l'initialisation de modifier la liste lue à partir de la scène.
-Les \textit{free splits} n'étant qu'une amélioration de \texttt{Random},
+Les \textit{free splits} n'étant qu'une amélioration de \texttt{Random}
+(elle-même identique à l'initialisation près, comme dans \cite[p.~256]{cg}),
 elle en hérite tout naturellement. Pour qu'elle fonctionne, le plus simple
 pour moi était
 d'ajouter à \texttt{Point} un indicateur disant qu'il s'agit d'une intersection.
 Lorsque les deux extrémités d'un segment en sont, on peut l'utiliser sans
 risquer que la droite qui le supporte n'en coupe un autre
-\footnote{Nous faisons l'hypothèse comme dans le livre de référence
+\footnote{Nous faisons l'hypothèse comme dans \cite[p.~256]{cg}
 que les segments ne se coupent pas}.
 La projection est faite dans la classe abstraite du peintre puisque
 cette opération nécessite des informations liées à la caméra
@@ -361,5 +363,7 @@ même sur des machines peu puissantes.
 pratique puisqu'il n'était ainsi plus nécessaire de découper en lexèmes
 les commandes entrées par l'utilisateur.
 
+
+\bibliography{compgeom}
 
 \end{document}
