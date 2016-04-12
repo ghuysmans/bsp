@@ -291,6 +291,7 @@ contenait des <<~segments~>> $[PQ]$ tels que $P=Q=(\pm250,0)$.
 
 
 \section{Analyse de complexité}
+\subsection{Algorithme du peintre}
 \begin{algorithm}
 \caption{peindre, décrit dans \cite[p.~255]{cg}}
 \SetAlgoLined\DontPrintSemicolon
@@ -356,6 +357,27 @@ on travaille avec des autopartitions
 tout en faisant attention aux cas extrêmes où il n'y a que deux segments.
 On trouve ainsi $\bigO(s\ln s)$.
 %FIXME imaginer pires cas (dessiner), tableau comme en cours ?
+
+
+\subsection{Free split}
+\begin{algorithm}
+\caption{freeSplit, décrit dans \cite[p.~257]{cg}}
+\SetAlgoLined\DontPrintSemicolon
+\KwData{$r \neq \es$}
+\ForEach{$s \in r$} {
+	\uIf{$s_p$ et $s_q$ sont des intersections} {
+		\Return{$s$}
+	}
+}
+\Return{$r_0$} \tcc*{par défaut...}
+~
+\end{algorithm}
+
+Il n'y a qu'une boucle sur les segments restant en $\bigO(s)$ et
+une condition sur des booléens évaluée en $\bigO(1)$.
+Dans le pire des cas, on retourne le premier segment de la liste
+préalablement mélangée lors de l'initialisation de l'heuristique.
+Celle-ci s'exécute ainsi en $\bigO(s)$.
 
 
 \section{Conclusion}
