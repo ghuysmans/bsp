@@ -41,15 +41,15 @@ Un arbre BSP (\textit{Binary Space Partition}) permet d'accéder efficacement
 à des objets dans l'espace ou ici, le plan. Son principe est dérivé de celui
 des arbres binaires. Chaque noeud interne représente une région $\reg$
 du plan et est divisé en trois parties selon
-une droite $D\equiv f(P)=aP_x+bP_y+c=0$ :
+une droite $t_D\equiv f(P)=aP_x+bP_y+c=0$ :
 \begin{itemize}
-	\item $d^-=\left\{f(P)<0 \; | \; P\in\reg\right\}$
-	\item une liste de segments $s \inc D$
-	\item $d^+=\left\{f(P)>0 \; | \; P\in\reg\right\}$
+	\item $t^-=\left\{f(P)<0 \; | \; P\in\reg\right\}$
+	\item une liste de segments $t_s \inc t_D$
+	\item $t^+=\left\{f(P)>0 \; | \; P\in\reg\right\}$
 \end{itemize}
 
 À une feuille de cet arbre, aucune droite ne sera associée et elle ne
-contiendra qu'une liste de segments.
+contiendra qu'une liste de segments $t_s$.
 
 
 \section{Implémentation}
