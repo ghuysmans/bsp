@@ -94,6 +94,12 @@ class Overview extends JPanel implements MouseListener, PainterCallback {
 	@Override public void mouseReleased(MouseEvent e) {}
 	@Override public void mousePressed(MouseEvent e) {}
 
+	public void center(Point p) {
+		ofs = new Point(p.x-getWidth()/2/zoom, p.y-getHeight()/2/zoom);
+		revalidate();
+		repaint();
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Point p = convert(e.getPoint());
@@ -120,12 +126,7 @@ class Overview extends JPanel implements MouseListener, PainterCallback {
 			}
 		}
 		else { //let's not rely too much on a third button...
-			if (prev == null)
-				prev = p;
-			else {
-				System.out.println(new Segment(prev, p, Color.RED));
-				prev = null;
-			}
+			center(p);
 		}
 	}
 
@@ -133,6 +134,7 @@ class Overview extends JPanel implements MouseListener, PainterCallback {
 		this.ui = ui;
 		painter = new Noobie(ui.scene.segments);
 		System.out.println(ui.bsp.nodes()+" nodes, height="+ui.bsp.height());
+		ofs = new Point(ui.scene.maxX/2, ui.scene.maxY/2);
 		addMouseListener(this);
 	}
 }
