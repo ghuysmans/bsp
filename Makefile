@@ -1,5 +1,5 @@
 SAMPLES=300
-all: ana scenes/ellipses-r.pdf
+all: ana syn
 
 .SECONDARY:
 %.csv: %.txt
@@ -12,11 +12,16 @@ all: ana scenes/ellipses-r.pdf
 	./analysis.r -e First $<
 	mv Rplots.pdf $@
 
-%-r.pdf: $(wildcard scenes/%*.csv)
-	./linreg.r $<
+%-s.pdf:
+	./synthesis.r $(dir $@) $(notdir $(basename $@))
 	mv Rplots.pdf $@
 
 ANA=scenes/ellipsesLarge-f.pdf scenes/randomHuge-f.pdf
 ANA=scenes/ellipsesLarge.pdf scenes/randomHuge.pdf
 #don't use analysis here otherwise it'll try compiling some Rational Fortran...
 ana: ${ANA}
+
+SYN=scenes/ellipsesLarge.csv scenes/ellipsesMedium.csv scenes/ellipsesSmall.csv
+SYN=scenes/randomLarge.csv scenes/randomMedium.csv scenes/randomSmall.csv
+SYN+=scenes/ellipses-s.pdf scenes/random-s.pdf
+syn: ${SYN}
