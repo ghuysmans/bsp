@@ -115,7 +115,7 @@ class Overview extends JPanel implements MouseListener, PainterCallback {
 				repaint();
 				//paint what we can see
 				painter = new RealPainter(dir, pov, angle, ui.bsp);
-				JPanel c = new Canvas(this, painter, true);
+				JPanel c = new Canvas(this, painter, false);
 				JFrame f = new JFrame();
 				f.setTitle("Painter's View");
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
