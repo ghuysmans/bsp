@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import java.awt.BorderLayout;
 import java.io.IOException;
 
 /**
@@ -31,9 +32,13 @@ public class TestUI extends JFrame implements ActionListener {
 		try {
 			scene = new Scene(filename);
 			bsp = BSP.build(scene.segments, heuristic);
+			JPanel main = new JPanel();
+			Overview o = new Overview(this);
+			main.setLayout(new BorderLayout());
+			main.add(o);
+			main.add(new Zoom(o, 1, 800, 10, 10), BorderLayout.NORTH);
 			setContentPane(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				new JScrollPane(new Tree(filename, bsp)),
-				new Overview(this)));
+				new JScrollPane(new Tree(filename, bsp)), main));
 			revalidate();
 			repaint();
 		}
