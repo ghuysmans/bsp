@@ -119,7 +119,7 @@ class Overview extends JPanel implements MouseListener, PainterCallback {
 				JFrame f = new JFrame();
 				f.setTitle("Painter's View");
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				f.setSize(200, 140);
+				f.setSize(200, 60);
 				f.setContentPane(c);
 				f.setLocationByPlatform(true);
 				f.setVisible(true);
@@ -130,11 +130,15 @@ class Overview extends JPanel implements MouseListener, PainterCallback {
 		}
 	}
 
+	public void center() {
+		ofs = new Point(ui.scene.maxX/2, ui.scene.maxY/2);
+	}
+
 	public Overview(TestUI ui) {
 		this.ui = ui;
 		painter = new Noobie(ui.scene.segments);
 		System.out.println(ui.bsp.nodes()+" nodes, height="+ui.bsp.height());
-		ofs = new Point(ui.scene.maxX/2, ui.scene.maxY/2);
+		center();
 		addMouseListener(this);
 	}
 }
