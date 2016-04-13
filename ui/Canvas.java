@@ -13,7 +13,8 @@ class Canvas extends JPanel implements PainterCallback {
 	protected final boolean decomposed;
 	protected Graphics g;
 	private int y;
-	float zoom = 120;
+	private int zoom;
+	private static final int MARGIN = 10;
 
 	/**
 	 * Draw the projected segment.
@@ -24,13 +25,13 @@ class Canvas extends JPanel implements PainterCallback {
 		if (p == null)
 			return; //not seen
 		g.setColor(s.color);
-		int a = 40 + (int)(Point.to01(p.a) * zoom);
-		int b = 40 + (int)(Point.to01(p.b) * zoom);
+		int a = MARGIN + (int)(Point.to01(p.a) * zoom);
+		int b = MARGIN + (int)(Point.to01(p.b) * zoom);
 		g.drawLine(a, y, b, y);
 		g.drawLine(a, y+1, b, y+1);
 		if (decomposed) {
 			g.setColor(Color.GRAY);
-			g.drawLine(a, 30, a, 30+3*10);
+			g.drawLine(a, MARGIN, a, getHeight()-MARGIN);
 			y += 3;
 		}
 	}
@@ -40,8 +41,9 @@ class Canvas extends JPanel implements PainterCallback {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		//for the callback method
-		y = 30;
+		y = MARGIN;
 		this.g = g;
+		zoom = getWidth() - 2*MARGIN;
 		//ask the painter
 		painter.work(this);
 	}
