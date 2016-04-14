@@ -75,6 +75,6 @@
 		<delete dir="${reports.dir}" />
 	</target>
 	<target name="javadoc">
-		<javadoc access="public" classpath="${junit.cp}" destdir="${doc.dir}" nodeprecated="true" nodeprecatedlist="true" noindex="false" nonavbar="false" notree="false" packagenames=".*" source="1.6" sourcepath="${src.dir}" splitindex="true" use="true" version="false"/>
+		<javadoc access="public" classpath="${junit.cp}" destdir="${doc.dir}" nodeprecated="true" nodeprecatedlist="true" noindex="false" nonavbar="false" notree="false" packagenames="*" source="1.7" sourcepath="${src.dir}" splitindex="true" use="true" version="false"/>
 	</target>
 </project>
