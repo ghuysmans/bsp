@@ -290,7 +290,15 @@ les heuristiques non déterministes dans cette même scène.
 
 Le fichier \texttt{rectanglesHuge.txt} n'a pas pu été traité tel quel puisqu'il
 contenait des <<~segments~>> $[PQ]$ tels que $P=Q=(\pm250,0)$.
-%TODO
+La figure \ref{fig:eR} reprend les résultats des heuristiques
+sur la scène modifiée.
+%FIXME on voit quoi ?
+
+\begin{figure}[p]
+\center
+\includegraphics[width=\columnwidth]{../scenes/rectanglesHuge.pdf}
+\caption{\texttt{rectanglesHuge.txt} modifié}\label{fig:eR}
+\end{figure}
 
 
 \section{Analyse de complexité}
@@ -352,14 +360,29 @@ Il est prouvé dans \cite[p.~258]{cg} que
 le nombre de fragments de segments obtenus après construction d'un BSP
 est en $\bigO(s+2s\ln s)=\bigO(s\ln s)$ avec $s$, le nombre
 de segments contenus dans la scène.
+En outre, il y aura au pire un noeud par segment produit par l'heuristique,
+autrement dit $n=\bigO(s\ln s)$.
 
 Globalement, dans le pire des cas, tous les noeuds sont parcourus et
 tous les segments seront peints. Les complexités s'additionnent pour donner
-$\bigO(n+s\ln s)$. Or lorsque $s\geq1$, on a toujours $n\leq s+2$ :
-on travaille avec des autopartitions
-tout en faisant attention aux cas extrêmes où il n'y a que deux segments.
-On trouve ainsi $\bigO(s\ln s)$.
-%FIXME imaginer pires cas (dessiner), tableau comme en cours ?
+$\bigO(2s\ln s)$ que l'on simplifiera en $\bigO(s\ln s)$.
+
+
+Les figures \ref{fig:rS} et \ref{fig:eS} reprennent les moyennes des résultats
+sur les différentes tailles de scènes. Dans la première,
+%FIXME on voit quoi ?
+
+\begin{figure}[p]
+\center
+\includegraphics[width=\columnwidth]{../scenes/random-s.pdf}
+\caption{Statistiques pour les scènes \texttt{random}}\label{fig:rS}
+\end{figure}
+
+\begin{figure}[p]
+\center
+\includegraphics[width=\columnwidth]{../scenes/ellipses-s.pdf}
+\caption{Statistiques pour les scènes \texttt{ellipses}}\label{fig:eS}
+\end{figure}
 
 
 \subsection{Free split}

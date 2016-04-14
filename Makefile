@@ -18,6 +18,7 @@ all: ana syn
 
 ANA=scenes/ellipsesLarge-f.pdf scenes/randomHuge-f.pdf
 ANA=scenes/ellipsesLarge.pdf scenes/randomHuge.pdf
+ANA=scenes/rectanglesHuge.pdf
 #don't use analysis here otherwise it'll try compiling some Rational Fortran...
 ana: ${ANA}
 
