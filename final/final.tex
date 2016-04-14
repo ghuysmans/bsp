@@ -362,9 +362,10 @@ est supporté par cette même droite). En partant de $s$ segments,
 on se retrouve avec
 $s-1$ plus petits segments qui ne s'intersecteront pas (un segment ne peut
 jamais couper deux fois un autre) et 1 segment que l'on vient d'utiliser
+--- cela correspond à la colonne \textit{Fixés} ---
 ainsi qu'une région plus petite contenant $s-1$ autres segments
 qu'il faudra encore traiter à l'itération suivante (voir table \ref{tab:worst}).
-Au total, on se retrouve avec :
+Au total, on obtient :
 \[
 	\sum_{i=1}^{s}i = \frac s2\times (s+1) = \bigO(s^2)
 \]
@@ -372,7 +373,7 @@ Au total, on se retrouve avec :
 \begin{table}[h]
 \center
 \begin{tabular}{c||c|c||c}
-	Segments & Demi-région & Alignés & Total fixés \\ \hline\hline
+	Segments & Demi-région & Alignés & Fixés \\ \hline\hline
 	$s$ & $s-1$ & $1$ & $s$ \\ \hline
 	$s-1$ & $s-2$ & $1$ & $s-1$ \\ \hline
 	$s-2$ & $s-3$ & $1$ & $s-2$ \\ \hline
