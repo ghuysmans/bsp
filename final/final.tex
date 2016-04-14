@@ -287,7 +287,7 @@ les heuristiques non déterministes dans cette même scène.
 \caption{\texttt{ellipsesLarge.txt} sans \texttt{First}}\label{fig:eL-n}
 \end{figure}
 
-Le fichier \texttt{rectanglesHuge.txt} n'a pas pu été traité tel quel puisqu'il
+Le fichier \texttt{rectanglesHuge.txt} n'a pas pu être traité tel quel puisqu'il
 contenait des <<~segments~>> $[PQ]$ tels que $P=Q=(\pm250,0)$.
 La figure \ref{fig:eR} reprend les résultats des heuristiques
 sur la scène modifiée.
@@ -358,7 +358,8 @@ lorsque l'on ignore l'affichage des segments.
 La pire scène imaginable (voir figure \ref{fig:worst}) est celle
 dans laquelle à chaque itération de la construction du BSP, la droite choisie
 coupe tous les segments de la région sur laquelle on travaille (sauf celui qui
-est supporté par cette même droite). En partant de $s$ segments, retrouve avec
+est supporté par cette même droite). En partant de $s$ segments,
+on se retrouve avec
 $s-1$ plus petits segments qui ne s'intersecteront pas (un segment ne peut
 jamais couper deux fois un autre) et 1 segment que l'on vient d'utiliser
 ainsi qu'une région plus petite contenant $s-1$ autres segments
@@ -445,12 +446,12 @@ Il serait intéressant de généraliser les choses dans l'espace mais je doute
 de me souvenir de tout ce qui me sera nécessaire en géométrie pour y parvenir.
 L'abréviation BSP me disait quelque chose, c'est en fait aussi l'extension de
 fichier des cartes dans Quake et ses dérivés puisque le moteur original utilise
-(entre autres) cette structure de donnée afin de fonctionner efficacement
+(entre autres) cette structure de données afin de fonctionner efficacement
 même sur des machines peu puissantes.
 
 J'ai pu utiliser R afin de traiter facilement la grande quantité de données
 produites par mes tests : ainsi, on voit en un coup d'oeil si un algorithme se
-comporte bien en général et il est possible d'observer une complexité moyenne.
+comporte bien en général; il est possible d'observer une complexité moyenne.
 
 \texttt{StreamTokenizer} m'était jusque-là inconnu et il s'est avéré bien
 pratique puisqu'il n'était ainsi plus nécessaire de découper en lexèmes
