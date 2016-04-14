@@ -6,7 +6,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Graphical BSP tree
  */
-class Tree extends JTree {
+public class Tree extends JTree {
 	protected static void populate(DefaultMutableTreeNode node, BSP bsp) {
 		DefaultMutableTreeNode n;
 		if (bsp.negative != null) {

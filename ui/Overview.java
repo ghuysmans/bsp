@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 /**
  * Panel providing a view from the top
  */
-class Overview extends JPanel implements MouseListener, PainterCallback {
+public class Overview extends JPanel implements MouseListener, PainterCallback {
 	protected TestUI ui;
 	float zoom = 40;
 	Point dir; //vector

@@ -2,9 +2,9 @@ package ui;
 import core.*;
 
 /**
- * A fake callback class only counting {@link Segments} for benchmarks
+ * A fake callback class only counting {@link core.Segment} for benchmarks
  */
-class EmptyCallback implements PainterCallback {
+public class EmptyCallback implements PainterCallback {
 	protected int segments;
 
 	@Override
@@ -13,7 +13,7 @@ class EmptyCallback implements PainterCallback {
 	}
 
 	/**
-	 * Count how many {@link Segments} have been "drawn"
+	 * Count how many {@link core.Segment} have been "drawn"
 	 */
 	public int getCount() {
 		return segments;

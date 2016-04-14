@@ -6,8 +6,7 @@ import javax.swing.JComboBox;
 /**
  * ComboBox with the smallest possible height.
  */
-
-public class ThinCombo<T> extends JComboBox {
+class ThinCombo<T> extends JComboBox {
 	@Override
 	public Dimension getMaximumSize() {
 		Dimension ret = getPreferredSize();

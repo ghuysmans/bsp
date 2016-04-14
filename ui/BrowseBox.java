@@ -8,6 +8,9 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * TextField associated to a button opening a FileChooser
+ */
 class BrowseBox extends Box implements ActionListener {
 	public ThinTextField filename;
 

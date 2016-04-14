@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 /**
  * Panel displaying the {@link Painter}'s work
  */
-class Canvas extends JPanel implements PainterCallback {
+public class Canvas extends JPanel implements PainterCallback {
 	protected final Overview overview;
 	protected final Painter painter;
 	protected final boolean decomposed;

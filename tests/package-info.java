@@ -1,0 +1,4 @@
+/**
+ * JUnit tests
+ */
+package tests;

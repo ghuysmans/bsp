@@ -6,9 +6,7 @@ import javax.swing.JTextField;
 /**
  * TextField with the smallest possible height
  */
-
-@SuppressWarnings("serial")
-public class ThinTextField extends JTextField {
+class ThinTextField extends JTextField {
 	@Override
 	public Dimension getMaximumSize() {
 		Dimension ret = super.getMaximumSize();
