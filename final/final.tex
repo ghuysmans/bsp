@@ -292,7 +292,7 @@ Le fichier \texttt{rectanglesHuge.txt} n'a pas pu été traité tel quel puisqu'
 contenait des <<~segments~>> $[PQ]$ tels que $P=Q=(\pm250,0)$.
 La figure \ref{fig:eR} reprend les résultats des heuristiques
 sur la scène modifiée.
-%FIXME on voit quoi ?
+Le même problème semble survenir et rend les heuristiques totalement inefficaces.
 
 \begin{figure}[p]
 \center
@@ -304,7 +304,7 @@ sur la scène modifiée.
 \section{Analyse de complexité}
 \subsection{Algorithme du peintre}
 \begin{algorithm}
-\caption{peindre, décrit dans \cite[p.~255]{cg}}
+\caption{peindre \cite[p.~255]{cg}}
 \SetAlgoLined\DontPrintSemicolon
 \KwData{$t, \; pov$}
 \uIf{$t=\es$} {
@@ -416,7 +416,7 @@ En revanche, on commence à s'éloigner de cela à la figure \ref{fig:rS}.
 
 \subsection{Free split}
 \begin{algorithm}
-\caption{freeSplit, décrit dans \cite[p.~257]{cg}}
+\caption{freeSplit \cite[p.~257]{cg}}
 \SetAlgoLined\DontPrintSemicolon
 \KwData{$r \neq \es$}
 \ForEach{$s \in r$} {
