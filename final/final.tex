@@ -200,7 +200,6 @@ Les commandes habituelles sont de rigueur :
 Un nom de fichier peut être passé en paramètre afin de ne pas devoir le
 sélectionner manuellement. Vous pouvez sélectionner une heuristique
 (par défaut \texttt{First}) avant de lancer la construction de l'arbre BSP.
-%FIXME pré-remplir le champ et ne pas utiliser First d'office !
 
 Une fois l'arbre créé, deux représentations de la~scène sont présentées :
 \begin{itemize}
@@ -272,12 +271,12 @@ Segments            15609
 
 
 \section{Résultats}
-%donner et commenter les résultats de vos comparaison des heuristiques
 Sur la figure \ref{fig:eL}, on observe que l'ordre des segments dans la
 scène est bien meilleur que les autres examinés par \texttt{Random}. Cela vient
-du fait que la scène est construite en commençant par l'extérieur...
+du fait que la scène est construite en commençant par l'extérieur.
 La figure \ref{fig:eL-n} montre seulement la différence entre
-les heuristiques non déterministes.
+les heuristiques non déterministes dans cette même scène.
+%FIXME on voit quoi ?
 \begin{figure}[p]
 \center
 \includegraphics[width=\columnwidth]{../scenes/ellipsesLarge.pdf}
@@ -388,12 +387,12 @@ positionné par la méthode qui les calcule, également en $\bigO(1)$.
 
 
 \section{Conclusion}
-%apports, difficultés, comparaison théorie/pratique
+%FIXME on voit quoi entre théorie et pratique ?
 Ce projet était pour moi l'occasion de découvrir une solution élégante à un
-problème qui me semblait difficilement soluble en 3D avec beaucoup d'objets.
+problème qui me semblait difficilement soluble même en 2D avec beaucoup d'objets.
 Il serait intéressant de généraliser les choses dans l'espace mais je doute
-de disposer des connaissances nécessaires en géométrie pour y parvenir.
-L'abréviation me disait quelque chose, c'est en fait aussi l'extension de
+de me souvenir de tout ce qui me sera nécessaire en géométrie pour y parvenir.
+L'abréviation BSP me disait quelque chose, c'est en fait aussi l'extension de
 fichier des cartes dans Quake et ses dérivés puisque le moteur original utilise
 (entre autres) cette structure de donnée afin de fonctionner efficacement
 même sur des machines peu puissantes.
