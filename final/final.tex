@@ -356,21 +356,50 @@ d'arbre, l'ordre n'a pas d'importance pour évaluer sa complexité. L'algorithme
 s'exécute en $\bigO(n)$ avec $n$ le nombre de noeuds dans l'arbre
 lorsque l'on ignore l'affichage des segments.
 
-Il est prouvé dans \cite[p.~258]{cg} que
-le nombre de fragments de segments obtenus après construction d'un BSP
-est en $\bigO(s+2s\ln s)=\bigO(s\ln s)$ avec $s$, le nombre
-de segments contenus dans la scène.
+La pire scène imaginable (voir figure \ref{fig:worst}) est celle
+dans laquelle à chaque itération de la construction du BSP, la droite choisie
+coupe tous les segments de la région sur laquelle on travaille (sauf celui qui
+est supporté par cette même droite). En partant de $s$ segments, retrouve avec
+$s-1$ plus petits segments qui ne s'intersecteront pas (un segment ne peut
+jamais couper deux fois un autre) et 1 segment que l'on vient d'utiliser
+ainsi qu'une région plus petite contenant $s-1$ autres segments
+qu'il faudra encore traiter à l'itération suivante (voir table \ref{tab:worst}).
+Au total, on se retrouve avec :
+\[
+	\sum_{i=1}^{s}i = \frac s2\times (s+1) = \bigO(s^2)
+\]
+
+\begin{table}[h]
+\center
+\begin{tabular}{c||c|c||c}
+	Segments & Demi-région & Alignés & Total fixés \\ \hline\hline
+	$s$ & $s-1$ & $1$ & $s$ \\ \hline
+	$s-1$ & $s-2$ & $1$ & $s-1$ \\ \hline
+	$s-2$ & $s-3$ & $1$ & $s-2$ \\ \hline
+	\multicolumn{4}{c}{\dots} \\ \hline
+	$2$ & $1$ & $1$ & $2$ \\ \hline
+	$1$ & $0$ & $1$ & $1$
+\end{tabular}
+\caption{Étapes de l'algorithme de construction de BSP dans le pire des cas}
+\label{tab:worst}
+\end{table}
+
+\begin{figure}[h]
+\center
+\input{many.tex}
+\caption{Exemple de pire cas avec $s=4$}\label{fig:worst}
+\end{figure}
+
 En outre, il y aura au pire un noeud par segment produit par l'heuristique,
-autrement dit $n=\bigO(s\ln s)$.
+donc $n=\bigO(s^2)$.
 
 Globalement, dans le pire des cas, tous les noeuds sont parcourus et
 tous les segments seront peints. Les complexités s'additionnent pour donner
-$\bigO(2s\ln s)$ que l'on simplifiera en $\bigO(s\ln s)$.
+$\bigO(s^2)$.
 
-
-Les figures \ref{fig:rS} et \ref{fig:eS} reprennent les moyennes des résultats
-sur les différentes tailles de scènes. Dans la première,
-%FIXME on voit quoi ?
+À la figure \ref{fig:eS}, la relation entre le nombre de segments en entrée et
+le nombre de segments produits semble linéaire.
+En revanche, on commence à s'éloigner de cela à la figure \ref{fig:rS}.
 
 \begin{figure}[p]
 \center
